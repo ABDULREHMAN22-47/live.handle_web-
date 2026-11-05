@@ -1,0 +1,550 @@
+@import "tailwindcss";
+
+/* style.css */
+
+
+/* The original site relies on the system font standard for a native feel */
+
+.system-font {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+
+/* Ensuring identical link colors globally if not caught by Tailwind */
+
+a {
+    color: #2563eb;
+    /* Exact blue hex for links */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+nav a,
+nav a:hover,
+nav a:focus,
+nav a:visited,
+li a,
+li a:hover,
+li a:focus,
+li a:visited {
+    text-decoration: none !important;
+}
+
+
+/* Specific overrides for inputs */
+
+input:focus,
+select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #2563eb;
+    border-radius: 2px;
+}
+
+html.dark-mode body,
+body.dark-mode {
+    background-color: #0d0b18 !important;
+    background-image: radial-gradient(ellipse at top, rgba(35, 23, 73, 0.4), #0d0b18 58%, #0d0b18) !important;
+    color: #ffffff;
+}
+
+html:not(.dark):not(.dark-mode) body:not(.dark-mode) {
+    background-color: #f5f4fa !important;
+    background-image: radial-gradient(ellipse at top, rgba(124, 58, 237, 0.08), #f5f4fa 58%, #f5f4fa) !important;
+    color: #111827 !important;
+}
+
+html.dark-mode .theme-card,
+body.dark-mode .theme-card,
+body.dark-mode .home-form-card,
+body.dark-mode .home-app-card,
+body.dark-mode .content-section-card,
+body.dark-mode .contact-card,
+body.dark-mode .trend-card,
+body.dark-mode .about-card,
+body.dark-mode .learn-card,
+body.dark-mode .result-card,
+body.dark-mode .modal-backdrop [role="dialog"] {
+    background-color: rgba(18, 13, 36, 0.9);
+    border-color: #231b3c;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+html.dark-mode input,
+html.dark-mode textarea,
+html.dark-mode select,
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+    background-color: #090614;
+    border-color: #231b3c;
+    color: #ffffff;
+}
+
+html.dark-mode input::placeholder,
+html.dark-mode textarea::placeholder,
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+    color: #554b73;
+    opacity: 1;
+}
+
+html.dark-mode input:focus,
+html.dark-mode textarea:focus,
+html.dark-mode select:focus,
+body.dark-mode input:focus,
+body.dark-mode textarea:focus,
+body.dark-mode select:focus {
+    border-color: #6344f5;
+    box-shadow: none;
+    border-radius: 0.75rem;
+}
+
+html.dark-mode option,
+body.dark-mode option {
+    background-color: #090614;
+    color: #ffffff;
+}
+
+html.dark-mode button[type="submit"],
+body.dark-mode button[type="submit"] {
+    background-color: #6344f5;
+    color: #ffffff;
+    box-shadow: 0 4px 20px rgba(99, 68, 245, 0.35);
+    transition: all 200ms ease;
+}
+
+html.dark-mode button[type="submit"]:hover,
+body.dark-mode button[type="submit"]:hover {
+    background-color: #5234e2;
+}
+
+html.dark-mode footer.site-footer,
+body.dark-mode footer.site-footer {
+    background-color: #0a0712 !important;
+    border-color: #231b3c !important;
+    color: #a19bb3 !important;
+}
+
+html.dark-mode footer.site-footer [class~="bg-[#120e24]"],
+body.dark-mode footer.site-footer [class~="bg-[#120e24]"] {
+    background-color: #120e24 !important;
+    border-color: #231b3e !important;
+}
+
+html.dark-mode footer.site-footer [class~="text-white"],
+body.dark-mode footer.site-footer [class~="text-white"] {
+    color: #ffffff !important;
+}
+
+html.dark-mode footer.site-footer [class~="text-[#a19bb3]"],
+html.dark-mode footer.site-footer [class~="text-[#d1cdde]"],
+html.dark-mode footer.site-footer [class~="text-[#7e7694]"],
+body.dark-mode footer.site-footer [class~="text-[#a19bb3]"],
+body.dark-mode footer.site-footer [class~="text-[#d1cdde]"],
+body.dark-mode footer.site-footer [class~="text-[#7e7694]"] {
+    color: #a19bb3 !important;
+}
+
+html.dark-mode footer.site-footer nav a:hover,
+body.dark-mode footer.site-footer nav a:hover {
+    background-color: #1c1635;
+    color: #ffffff !important;
+}
+
+html.dark-mode footer.site-footer nav a:hover i:last-child,
+body.dark-mode footer.site-footer nav a:hover i:last-child {
+    color: #ffffff !important;
+}
+
+html.dark-mode footer.site-footer [class~="border-t"],
+body.dark-mode footer.site-footer [class~="border-t"] {
+    border-color: #231b3e !important;
+}
+
+html:not(.dark):not(.dark-mode) footer.site-footer,
+body:not(.dark-mode) footer.site-footer {
+    background-color: #f5f4fa !important;
+    border-color: #e5e7eb !important;
+    color: #6b7280 !important;
+}
+
+html:not(.dark):not(.dark-mode) footer.site-footer [class~="bg-[#120e24]"],
+body:not(.dark-mode) footer.site-footer [class~="bg-[#120e24]"] {
+    background-color: #ffffff !important;
+    border-color: #e5e7eb !important;
+}
+
+html:not(.dark):not(.dark-mode) footer.site-footer [class~="text-white"],
+body:not(.dark-mode) footer.site-footer [class~="text-white"] {
+    color: #111827 !important;
+}
+
+html:not(.dark):not(.dark-mode) footer.site-footer [class~="text-[#a19bb3]"],
+html:not(.dark):not(.dark-mode) footer.site-footer [class~="text-[#d1cdde]"],
+html:not(.dark):not(.dark-mode) footer.site-footer [class~="text-[#7e7694]"],
+body:not(.dark-mode) footer.site-footer [class~="text-[#a19bb3]"],
+body:not(.dark-mode) footer.site-footer [class~="text-[#d1cdde]"],
+body:not(.dark-mode) footer.site-footer [class~="text-[#7e7694]"] {
+    color: #6b7280 !important;
+}
+
+html:not(.dark):not(.dark-mode) footer.site-footer nav a:hover,
+body:not(.dark-mode) footer.site-footer nav a:hover {
+    background-color: #eeeafc;
+    color: #6344f5 !important;
+}
+
+html:not(.dark):not(.dark-mode) footer.site-footer nav a i:last-child,
+body:not(.dark-mode) footer.site-footer nav a i:last-child {
+    color: #9ca3af !important;
+}
+
+html:not(.dark):not(.dark-mode) footer.site-footer nav a:hover i:last-child,
+body:not(.dark-mode) footer.site-footer nav a:hover i:last-child {
+    color: #6344f5 !important;
+}
+
+html:not(.dark):not(.dark-mode) footer.site-footer [class~="bg-[#201939]"],
+body:not(.dark-mode) footer.site-footer [class~="bg-[#201939]"] {
+    background-color: #eeeafc !important;
+}
+
+html:not(.dark):not(.dark-mode) footer.site-footer [class~="border-t"],
+body:not(.dark-mode) footer.site-footer [class~="border-t"] {
+    border-color: #d8d2e8 !important;
+}
+
+header,
+header nav[aria-label="Main navigation"],
+header nav[aria-label="Primary"] {
+    transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease;
+}
+
+header .header-brand-text {
+    font-size: 16px !important;
+    line-height: 1.15 !important;
+}
+
+header .header-brand-live {
+    color: #111827 !important;
+}
+
+header .header-brand-handle {
+    color: #7c3aed !important;
+}
+
+html.dark-mode body.dark-mode header .header-brand-live {
+    color: #ffffff !important;
+}
+
+html.dark-mode body.dark-mode header .header-brand-handle {
+    color: #8f6bf2 !important;
+}
+
+header nav[aria-label="Main navigation"] > div,
+header nav[aria-label="Primary"] {
+    transition: background-color 200ms ease, border-color 200ms ease;
+}
+
+html:not(.dark):not(.dark-mode) body:not(.dark-mode) header {
+    background-color: rgba(245, 244, 250, 0.94) !important;
+    border-color: #e5e7eb !important;
+    color: #111827 !important;
+}
+
+html:not(.dark):not(.dark-mode) body:not(.dark-mode) header nav[aria-label="Main navigation"] > a:first-child > span:last-child,
+html:not(.dark):not(.dark-mode) body:not(.dark-mode) header nav[aria-label="Primary"] > a:first-child > span:last-child {
+    color: #111827 !important;
+}
+
+html:not(.dark):not(.dark-mode) body:not(.dark-mode) header nav[aria-label="Main navigation"] > div:is(.site-nav, .about-nav, .contact-nav, .trend-nav, .learn-nav, .instagram-nav),
+html:not(.dark):not(.dark-mode) body:not(.dark-mode) header nav[aria-label="Primary"] {
+    background-color: #ffffff !important;
+    border-color: #252b35 !important;
+    border-width: 1.5px !important;
+}
+
+html:not(.dark):not(.dark-mode) body:not(.dark-mode) header nav[aria-label="Main navigation"] > div:is(.site-nav, .about-nav, .contact-nav, .trend-nav, .learn-nav, .instagram-nav) a:not([aria-current="page"]),
+html:not(.dark):not(.dark-mode) body:not(.dark-mode) header nav[aria-label="Primary"] a:not([aria-current="page"]) {
+    color: #4b5563 !important;
+}
+
+html:not(.dark):not(.dark-mode) body:not(.dark-mode) header nav[aria-label="Main navigation"] > div:is(.site-nav, .about-nav, .contact-nav, .trend-nav, .learn-nav, .instagram-nav) a:not([aria-current="page"]):hover,
+html:not(.dark):not(.dark-mode) body:not(.dark-mode) header nav[aria-label="Primary"] a:not([aria-current="page"]):hover {
+    background-color: #f3f4f6 !important;
+    color: #111827 !important;
+}
+
+html:not(.dark):not(.dark-mode) body:not(.dark-mode) header nav[aria-label="Main navigation"] a[aria-current="page"],
+html:not(.dark):not(.dark-mode) body:not(.dark-mode) header nav[aria-label="Primary"] a[aria-current="page"] {
+    background-color: #6344f5 !important;
+    color: #ffffff !important;
+}
+
+html:not(.dark):not(.dark-mode) body:not(.dark-mode) header nav[aria-label="Main navigation"] a[download] {
+    background-color: #eeeafc !important;
+    border-color: #e9d5ff !important;
+    color: #7c3aed !important;
+}
+
+html:not(.dark):not(.dark-mode) body:not(.dark-mode) header nav[aria-label="Main navigation"] a[download]:hover {
+    background-color: #e4ddfa !important;
+}
+
+html:not(.dark):not(.dark-mode) body:not(.dark-mode) header nav[aria-label="Main navigation"] button[id="themeToggle"] {
+    background-color: #ffffff !important;
+    border-color: #e5e7eb !important;
+    color: #4b5563 !important;
+}
+
+html:not(.dark):not(.dark-mode) body:not(.dark-mode) header nav[aria-label="Main navigation"] button[id="themeToggle"]:hover {
+    background-color: #f3f4f6 !important;
+    color: #111827 !important;
+}
+
+html.dark-mode body.dark-mode header {
+    background-color: rgba(10, 7, 18, 0.92) !important;
+    border-color: #231b3c !important;
+    color: #ffffff !important;
+}
+
+html.dark-mode body.dark-mode header nav[aria-label="Main navigation"] > a:first-child > span:last-child,
+html.dark-mode body.dark-mode header nav[aria-label="Primary"] > a:first-child > span:last-child {
+    color: #ffffff !important;
+}
+
+html.dark-mode body.dark-mode header nav[aria-label="Main navigation"] > div:is(.site-nav, .about-nav, .contact-nav, .trend-nav, .learn-nav, .instagram-nav),
+html.dark-mode body.dark-mode header nav[aria-label="Primary"] {
+    background-color: rgba(22, 18, 38, 0.88) !important;
+    border-color: #2a2442 !important;
+}
+
+html.dark-mode body.dark-mode header nav[aria-label="Main navigation"] > div:is(.site-nav, .about-nav, .contact-nav, .trend-nav, .learn-nav, .instagram-nav) a:not([aria-current="page"]),
+html.dark-mode body.dark-mode header nav[aria-label="Primary"] a:not([aria-current="page"]) {
+    color: #9ca3af !important;
+}
+
+html.dark-mode body.dark-mode header nav[aria-label="Main navigation"] > div:is(.site-nav, .about-nav, .contact-nav, .trend-nav, .learn-nav, .instagram-nav) a:not([aria-current="page"]):hover,
+html.dark-mode body.dark-mode header nav[aria-label="Primary"] a:not([aria-current="page"]):hover {
+    background-color: #201939 !important;
+    color: #ffffff !important;
+}
+
+html.dark-mode body.dark-mode header nav[aria-label="Main navigation"] a[aria-current="page"],
+html.dark-mode body.dark-mode header nav[aria-label="Primary"] a[aria-current="page"] {
+    background-color: #6344f5 !important;
+    color: #ffffff !important;
+}
+
+html.dark-mode body.dark-mode header nav[aria-label="Main navigation"] a[download] {
+    background-color: #201939 !important;
+    border-color: #342a5c !important;
+    color: #8b5cf6 !important;
+}
+
+html.dark-mode body.dark-mode header nav[aria-label="Main navigation"] a[download]:hover {
+    background-color: #2b224d !important;
+}
+
+html.dark-mode body.dark-mode header nav[aria-label="Main navigation"] button[id="themeToggle"] {
+    background-color: #161226 !important;
+    border-color: #2a2442 !important;
+    color: #9ca3af !important;
+}
+
+html.dark-mode body.dark-mode header nav[aria-label="Main navigation"] button[id="themeToggle"]:hover {
+    background-color: #201939 !important;
+    color: #ffffff !important;
+}
+
+header button[id="themeToggle"] {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 9999px !important;
+    border-width: 1.5px !important;
+    box-shadow: none !important;
+}
+
+header button[id="themeToggle"] i {
+    font-size: 16px !important;
+}
+
+html:not(.dark):not(.dark-mode) body:not(.dark-mode) header button[id="themeToggle"] .fa-moon {
+    color: #4b5563 !important;
+}
+
+html.dark-mode body.dark-mode header button[id="themeToggle"] .fa-sun {
+    color: #9ca3af !important;
+}
+
+@media (min-width: 1280px) {
+    body > header {
+        position: fixed !important;
+        inset: 0 0 auto !important;
+        z-index: 50 !important;
+        width: 100% !important;
+        height: 70px !important;
+        border-top: 0 !important;
+        border-bottom-width: 1px !important;
+        border-bottom-style: solid !important;
+    }
+
+    body {
+        padding-top: 70px !important;
+    }
+
+    body > header > nav[aria-label="Main navigation"] {
+        position: relative !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 12px !important;
+        width: calc(100% - 32px) !important;
+        max-width: 1152px !important;
+        height: 69px !important;
+        min-height: 69px !important;
+        margin-inline: auto !important;
+        padding: 0 !important;
+    }
+
+    body > header > nav[aria-label="Main navigation"] > a:first-child {
+        justify-self: start !important;
+        margin-left: 0 !important;
+        gap: 8px !important;
+        flex: 0 0 auto !important;
+    }
+
+    body > header > nav[aria-label="Main navigation"] > a:first-child > span:first-child {
+        width: 48px !important;
+        height: 48px !important;
+        flex: 0 0 48px !important;
+    }
+
+    body > header > nav[aria-label="Main navigation"] > a:first-child > span:last-child {
+        font-size: 16px !important;
+        line-height: 1.1 !important;
+    }
+
+    body > header > nav[aria-label="Main navigation"] > div:is(.site-nav, .about-nav, .contact-nav, .trend-nav, .learn-nav, .instagram-nav),
+    body > header > nav[aria-label="Main navigation"] > nav[aria-label="Primary"] {
+        position: absolute !important;
+        left: 50% !important;
+        top: 50% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-self: auto !important;
+        gap: 4px !important;
+        width: max-content !important;
+        max-width: 100% !important;
+        height: 48px !important;
+        padding: 3px 8px !important;
+        border-radius: 9999px !important;
+        border-width: 1.5px !important;
+        box-shadow: 0 3px 6px rgba(17, 24, 39, 0.14) !important;
+        transform: translate(-50%, -50%) !important;
+    }
+
+    body > header > nav[aria-label="Main navigation"] > div:is(.site-nav, .about-nav, .contact-nav, .trend-nav, .learn-nav, .instagram-nav) > a,
+    body > header > nav[aria-label="Main navigation"] > nav[aria-label="Primary"] > a {
+        padding: 8px 16px !important;
+        border-radius: 9999px !important;
+        font-size: 14px !important;
+        line-height: 1.25 !important;
+        white-space: nowrap !important;
+    }
+
+    body > header > nav[aria-label="Main navigation"] > div:last-child {
+        justify-self: end !important;
+        gap: 8px !important;
+        margin-right: 0 !important;
+        margin-left: auto !important;
+        flex: 0 0 auto !important;
+    }
+
+    body > header > nav[aria-label="Main navigation"] > div:last-child > a[download] {
+        height: 42px !important;
+        padding: 0 20px !important;
+        gap: 8px !important;
+        border-radius: 9999px !important;
+        font-size: 14px !important;
+        white-space: nowrap !important;
+    }
+
+    body > header button[id="themeToggle"] {
+        width: 42px !important;
+        height: 42px !important;
+        border-width: 1px !important;
+    }
+
+    body > header button[id="themeToggle"] i {
+        font-size: 16px !important;
+    }
+}
+
+@media (max-width: 1279px) {
+    body > header {
+        position: fixed !important;
+        inset: 0 0 auto !important;
+        z-index: 50 !important;
+        width: 100% !important;
+        height: 64px !important;
+        border-top: 0 !important;
+        border-bottom-width: 1px !important;
+        border-bottom-style: solid !important;
+    }
+
+    body {
+        padding-top: 64px !important;
+    }
+
+    body > header > nav[aria-label="Main navigation"] {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        width: calc(100% - 32px) !important;
+        max-width: 1152px !important;
+        height: 63px !important;
+        min-height: 63px !important;
+        margin-inline: auto !important;
+        padding: 0 !important;
+    }
+
+    body > header > nav[aria-label="Main navigation"] > a:first-child {
+        margin-left: 0 !important;
+        flex: 0 0 auto !important;
+    }
+
+    body > header > nav[aria-label="Main navigation"] > div:last-child {
+        justify-self: end !important;
+        margin-left: auto !important;
+        flex: 0 0 auto !important;
+    }
+
+    body > header > nav[aria-label="Main navigation"] > div:is(.site-nav, .about-nav, .contact-nav, .trend-nav, .learn-nav, .instagram-nav),
+    body > header > nav[aria-label="Main navigation"] > nav[aria-label="Primary"] {
+        display: none !important;
+    }
+
+    body > header > nav[aria-label="Main navigation"] > a:first-child > span:first-child {
+        width: 40px !important;
+        height: 40px !important;
+        flex: 0 0 40px !important;
+    }
+
+    body > header > nav[aria-label="Main navigation"] > a:first-child > span:last-child {
+        font-size: 16px !important;
+    }
+
+    body > header button[id="themeToggle"] {
+        width: 40px !important;
+        height: 40px !important;
+        border-width: 1px !important;
+    }
+
+    body > header button[id="themeToggle"] i {
+        font-size: 16px !important;
+    }
+}

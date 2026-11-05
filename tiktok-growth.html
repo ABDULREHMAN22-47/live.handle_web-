@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0d0b18">
+    <title>TikTok Growth Analyzer &amp; Views Checker - LiveHandle</title>
+    <script>
+        try {
+            const savedTheme = localStorage.getItem('theme') || localStorage.getItem('livehandle-theme');
+            const dark = savedTheme !== 'light';
+            document.documentElement.classList.toggle('dark', dark);
+            document.documentElement.classList.toggle('dark-mode', dark);
+        } catch (error) {
+            console.warn('Unable to read the saved theme preference.', error);
+            document.documentElement.classList.add('dark', 'dark-mode');
+        }
+    </script>
+    <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="input.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        html { scroll-behavior: smooth; }
+        body { background: linear-gradient(to bottom, #f3f1fa, #f8f7fc); color: #111827; transition: background-color .2s ease, color .2s ease; }
+        .theme-card, .theme-control, .theme-input, .theme-tint, .site-nav { transition: background-color .2s ease, border-color .2s ease, color .2s ease; }
+        .theme-divider { height: 1px; margin: 2rem 0; background: #e9e4f4; box-shadow: 0 -1px 10px rgba(108, 60, 233, .08); }
+        html.dark-mode body { background: radial-gradient(ellipse at top, rgba(35, 23, 73, .4), #0d0b18 58%, #0d0b18); color: #fff; }
+        html.dark-mode .site-header, html.dark-mode .theme-footer { background-color: rgba(13, 11, 24, .92); border-color: #231b3c; }
+        html.dark-mode .site-nav { background-color: rgba(22, 18, 38, .8); border-color: #2a2442; }
+        html.dark-mode .theme-card { background-color: rgba(18, 13, 36, .9); border-color: #231b3c; }
+        html.dark-mode .theme-control { background-color: #161226; border-color: #2a2442; color: #9ca3af; }
+        .site-nav .theme-link { transition: none; }
+        html.dark-mode .site-nav .theme-link { color: #9ca3af; }
+        html.dark-mode .theme-card .theme-input { background-color: #090614; border-color: #231b3c; }
+        html.dark-mode .theme-heading, html.dark-mode .theme-badge-title { color: #fff; }
+        html.dark-mode .theme-copy, html.dark-mode .theme-link { color: #a19bb3; }
+        html.dark-mode .theme-link:hover { color: #a78bfa; }
+        html.dark-mode .site-nav .theme-link:hover { background-color: #201939; color: #ffffff !important; }
+        html.dark-mode .theme-input { background-color: #090614; border-color: #231b3c; color: #fff; }
+        html.dark-mode .theme-tint { background-color: #140f28; border-color: #2a204d; }
+        html.dark-mode .theme-footer { color: #a19bb3; }
+        html.dark-mode .faq-item { border-color: #342a5c; }
+        html.dark-mode .theme-muted-border { border-color: #342a5c; }
+        html.dark-mode .platform-choice[aria-pressed="true"] { background-color: #201939; border-color: #6344f5; color: #fff; }
+        html.dark-mode .platform-choice[aria-pressed="false"] { background-color: #120d22; border-color: #342a5c; color: #a19bb3; }
+        html.dark-mode .theme-divider { background: #231b3e; box-shadow: 0 -1px 10px rgba(108, 60, 233, .2); }
+        .modal-backdrop[hidden] { display: none; }
+    </style>
+</head>
+<body class="bg-[#0d0b18] text-white bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#231749]/40 via-[#0d0b18] to-[#0d0b18] min-h-screen font-sans selection:bg-[#7c3aed] selection:text-white">
+    <script>document.body.classList.toggle('dark-mode', document.documentElement.classList.contains('dark'));</script>
+    <header class="site-header sticky top-0 z-40 border-b-0 bg-[#f5f4fa]/90 backdrop-blur-md">
+        <nav class="mx-auto flex min-h-16 max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6" aria-label="Main navigation">
+            <a href="index.html" class="flex shrink-0 items-center gap-2 no-underline transition-opacity hover:opacity-80">
+                <span class="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full"><img src="assets/livehandle-logo.png" alt="" class="h-full w-full object-contain"></span>
+                <span class="header-brand-text theme-heading text-lg font-extrabold tracking-tight"><span class="header-brand-live">Live</span><span class="header-brand-handle">Handle</span></span>
+            </a>
+            <div class="site-nav order-3 flex w-full items-center justify-center gap-1 overflow-x-auto rounded-full border border-gray-200/80 bg-white px-2 py-1.5 shadow-md dark:border-[#2a2442] dark:bg-[#161226]/80 lg:order-2 lg:w-auto">
+                <a href="index.html" class="theme-link whitespace-nowrap rounded-full px-3.5 py-1.5 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-100 dark:text-[#9ca3af] dark:hover:bg-[#201939] dark:hover:text-white">Home</a>
+                <a href="video-downloader.html" class="theme-link whitespace-nowrap rounded-full px-3.5 py-1.5 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-100 dark:text-[#9ca3af] dark:hover:bg-[#201939] dark:hover:text-white">Download</a>
+                <a href="tiktok-growth.html" aria-current="page" class="whitespace-nowrap rounded-full bg-[#6344f5] px-5 py-1.5 text-xs font-semibold text-white shadow-[0_0_12px_rgba(99,68,245,0.4)]">Growth</a>
+                <a href="content-trends.html" class="theme-link whitespace-nowrap rounded-full px-3.5 py-1.5 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-100 dark:text-[#9ca3af] dark:hover:bg-[#201939] dark:hover:text-white">Trends</a>
+                <a href="learn.html" class="theme-link whitespace-nowrap rounded-full px-3.5 py-1.5 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-100 dark:text-[#9ca3af] dark:hover:bg-[#201939] dark:hover:text-white">Learn</a>
+                <a href="about.html" class="theme-link whitespace-nowrap rounded-full px-3.5 py-1.5 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-100 dark:text-[#9ca3af] dark:hover:bg-[#201939] dark:hover:text-white">About</a>
+                <a href="contact.html" class="theme-link whitespace-nowrap rounded-full px-3.5 py-1.5 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-100 dark:text-[#9ca3af] dark:hover:bg-[#201939] dark:hover:text-white">Contact</a>
+            </div>
+            <div class="order-2 flex shrink-0 items-center gap-2 lg:order-3">
+                <a href="downloads/LiveHandle.apk" download="LiveHandle.apk" class="hidden items-center gap-2 rounded-full border border-purple-200 bg-[#eeeafc] px-4 py-2 text-xs font-semibold text-[#7c3aed] transition-colors hover:bg-[#e4ddfa] dark:border-[#342a5c] dark:bg-[#201939] dark:text-[#8b5cf6] dark:hover:bg-[#2b224d] sm:inline-flex"><i class="fa-brands fa-android" aria-hidden="true"></i><span>Download App</span></a>
+                <button id="themeToggle" type="button" class="theme-control flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-xs text-gray-600 transition-colors hover:bg-gray-100 dark:border-[#2a2442] dark:bg-[#161226] dark:text-[#9ca3af] dark:hover:text-white" aria-label="Switch to dark mode"><i class="fa-solid fa-sun" aria-hidden="true"></i></button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="mx-auto w-full max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
+        <section class="mb-8 text-center" aria-labelledby="page-title">
+            <span class="theme-tint mb-3 inline-flex rounded-full border border-purple-100 bg-[#eeeafc] px-4 py-1.5 text-xs font-medium text-[#7c3aed]">Recent samples · not lifetime history</span>
+            <h1 id="page-title" class="theme-heading mb-3 text-3xl font-extrabold text-[#111827] sm:text-4xl">TikTok Growth Analyzer &amp; Views Checker</h1>
+            <p class="theme-copy mx-auto max-w-3xl text-sm leading-relaxed text-gray-500 sm:text-base">Inspect TikTok account growth from a live public follower snapshot plus, when play counts exist, a recent-video views sample. Average views, best-post multipliers, and views per follower describe that sample only — not historical follower tracking.</p>
+            <div class="mt-5 flex flex-wrap justify-center gap-2">
+                <button type="button" class="platform-choice theme-card rounded-xl border border-[#7c3aed] bg-[#eeeafc] px-4 py-2 text-xs font-semibold text-[#7c3aed] transition-all" data-platform="TikTok" aria-pressed="true"><i class="fa-brands fa-tiktok mr-2" aria-hidden="true"></i>TikTok</button>
+                <button type="button" class="platform-choice theme-card rounded-xl border border-gray-200 bg-white px-4 py-2 text-xs font-semibold text-gray-600 transition-all hover:border-purple-200" data-platform="Instagram" aria-pressed="false"><i class="fa-brands fa-instagram mr-2" aria-hidden="true"></i>Instagram</button>
+            </div>
+            <div class="theme-tint mx-auto mt-6 grid max-w-md grid-cols-3 gap-2 rounded-2xl border border-purple-100 bg-[#eeeafc] p-3 text-center text-xs">
+                <div><i class="fa-solid fa-users text-[#7c3aed]" aria-hidden="true"></i><strong class="theme-badge-title mt-1 block text-sm text-gray-800">Live snapshot</strong><small class="theme-copy text-xs text-gray-500">Followers now</small></div>
+                <div><i class="fa-solid fa-play text-[#7c3aed]" aria-hidden="true"></i><strong class="theme-badge-title mt-1 block text-sm text-gray-800">View samples</strong><small class="theme-copy text-xs text-gray-500">Recent posts</small></div>
+                <div><i class="fa-solid fa-ban text-[#7c3aed]" aria-hidden="true"></i><strong class="theme-badge-title mt-1 block text-sm text-gray-800">No invented history</strong><small class="theme-copy text-xs text-gray-500">Public data only</small></div>
+            </div>
+        </section>
+
+        <section class="theme-card mb-8 rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="growth-form-title">
+            <div class="mb-6 flex items-start justify-between gap-4">
+                <div><p class="mb-2 text-xs font-bold tracking-widest text-[#7c3aed]">GROWTH CHECK</p><h2 id="growth-form-title" class="theme-heading text-2xl font-bold text-[#111827]">Analyze public creator metrics</h2></div>
+                <span class="theme-tint rounded-full bg-[#eeeafc] px-3 py-1 text-xs font-bold text-[#7c3aed]">FREE</span>
+            </div>
+            <form id="growthForm" class="space-y-4" novalidate>
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div><label for="growth-username" class="mb-2 block text-xs font-bold uppercase tracking-widest text-[#7c3aed]">Username</label><div class="theme-input flex items-center overflow-hidden rounded-xl border border-[#231b3c] bg-[#090614] focus-within:border-[#6344f5]"><span class="bg-transparent px-4 font-bold text-[#8f6bf2]" aria-hidden="true">@</span><input id="growth-username" name="username" class="w-full bg-transparent py-3.5 pr-4 text-sm text-white outline-none placeholder:text-[#554b73]" placeholder="@ username" autocomplete="off" required maxlength="30" pattern="[A-Za-z0-9._]+"></div></div>
+                        <div><label for="growth-platform" class="mb-2 block text-xs font-bold uppercase tracking-widest text-[#7c3aed]">Platform</label><select id="growth-platform" class="theme-input w-full rounded-xl border border-[#231b3c] bg-[#090614] px-4 py-3.5 text-sm text-white outline-none focus:border-[#6344f5]"><option>TikTok</option><option>Instagram</option></select></div>
+                </div>
+                <button type="submit" class="flex w-full items-center justify-center gap-2 rounded-xl bg-[#6344f5] py-4 font-bold text-white shadow-[0_4px_20px_rgba(99,68,245,0.35)] transition-all hover:bg-[#5234e2] disabled:cursor-wait disabled:opacity-70"><i class="fa-solid fa-chart-line" aria-hidden="true"></i>Analyze growth</button>
+                <p id="growth-status" class="theme-copy min-h-5 text-sm text-gray-500" role="status" aria-live="polite"></p>
+            </form>
+        </section>
+
+        <aside class="theme-card mb-6 flex items-center gap-3 rounded-2xl border border-gray-200 bg-white p-4 text-xs text-gray-500">
+            <i class="fa-solid fa-circle-info text-[#7c3aed]" aria-hidden="true"></i>
+            <p>Recent samples are not lifetime history. Also try the <a href="tiktok-analyzer.html" class="theme-link font-semibold text-[#7c3aed] underline">TikTok Profile Analyzer</a> for authenticity-style public signals.</p>
+        </aside>
+        <section class="theme-card mb-6 rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="preview-heading">
+            <div class="mb-4 flex items-center gap-2"><i class="fa-solid fa-chart-column text-[#7c3aed]" aria-hidden="true"></i><p class="text-xs font-bold tracking-widest text-[#7c3aed]">PREVIEW</p></div>
+            <h2 id="preview-heading" class="theme-heading mb-3 text-2xl font-bold text-[#111827]">What you'll see</h2>
+            <p class="theme-copy mb-5 text-sm leading-relaxed text-gray-500">Follower snapshot, recent post viewership bars, engagement signals, and creator tips — matched to this account's public data.</p>
+            <ul class="theme-copy grid gap-2 text-sm text-gray-600 sm:grid-cols-3">
+                <li><i class="fa-solid fa-check mr-2 text-[#8f6bf2]" aria-hidden="true"></i>Live follower / following counts</li>
+                <li><i class="fa-solid fa-check mr-2 text-[#8f6bf2]" aria-hidden="true"></i>Recent play samples when available</li>
+                <li><i class="fa-solid fa-check mr-2 text-[#8f6bf2]" aria-hidden="true"></i>Views-per-follower &amp; consistency cues</li>
+            </ul>
+        </section>
+        <section class="theme-card mb-6 rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="steps-heading">
+            <p class="mb-2 text-xs font-bold tracking-widest text-[#7c3aed]">STEPS</p><h2 id="steps-heading" class="theme-heading mb-6 text-2xl font-bold text-[#111827]">How to run a TikTok growth check</h2>
+            <ol class="space-y-5">
+                <li class="flex gap-4"><span class="theme-tint flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-purple-100 bg-[#eeeafc] font-bold text-[#7c3aed]">1</span><div><h3 class="theme-heading mb-1 font-semibold text-[#111827]">Enter a public TikTok username</h3><p class="theme-copy text-sm leading-relaxed text-gray-500">Use the unique ID of a public account. Private profiles cannot return a posts feed.</p></div></li>
+                <li class="flex gap-4"><span class="theme-tint flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-purple-100 bg-[#eeeafc] font-bold text-[#7c3aed]">2</span><div><h3 class="theme-heading mb-1 font-semibold text-[#111827]">Wait for the public posts sample</h3><p class="theme-copy text-sm leading-relaxed text-gray-500">The analyzer fetches recent public videos that include play counts to calculate viewership averages.</p></div></li>
+                <li class="flex gap-4"><span class="theme-tint flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-purple-100 bg-[#eeeafc] font-bold text-[#7c3aed]">3</span><div><h3 class="theme-heading mb-1 font-semibold text-[#111827]">Read sample metrics, not lifetime curves</h3><p class="theme-copy text-sm leading-relaxed text-gray-500">Average views and views per follower use the latest available posts. LiveHandle does not invent multi-month follower history.</p></div></li>
+            </ol>
+        </section>
+        <div class="theme-divider" aria-hidden="true"></div>
+        <section id="report" class="theme-card mb-8 scroll-mt-24 rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm sm:p-8">
+            <p class="mb-2 text-xs font-bold tracking-widest text-[#7c3aed]">REPORT</p><h2 class="theme-heading mb-4 text-2xl font-bold text-[#111827]">What this TikTok views analyzer includes</h2>
+            <div class="theme-copy space-y-3 text-sm leading-relaxed text-gray-500">
+                <p>Growth pulls a live public follower snapshot plus, when the posts feed returns play counts, a recent-video viewership sample: average views, median views, best-post multiplier, consistency cues, and views per follower.</p>
+                <p>That makes it a TikTok views analyzer for the latest public videos, not a lifetime growth tracker. Share Stats copies the on-screen snapshot — it does not create a permanent public report URL for every username.</p>
+            </div>
+        </section>
+        <section class="theme-card mb-8 rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm sm:p-8">
+            <p class="mb-2 text-xs font-bold tracking-widest text-[#7c3aed]">USE CASES</p><h2 class="theme-heading mb-4 text-2xl font-bold text-[#111827]">Use cases for TikTok view analytics</h2>
+            <div class="theme-copy space-y-3 text-sm leading-relaxed text-gray-500">
+                <p>Use this page when you want to compare recent TikTok video reach against audience size. It helps spot whether a public account is overperforming, underperforming, or relying on one breakout video.</p>
+                <p>For profile completeness, bio, and authenticity-style account signals, use the <a href="tiktok-analyzer.html" class="theme-link font-semibold text-[#7c3aed] underline">TikTok Profile Analyzer</a> instead.</p>
+            </div>
+        </section>
+        <section class="theme-card mb-8 rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm sm:p-8">
+            <p class="mb-2 text-xs font-bold tracking-widest text-[#7c3aed]">LIMITS</p><h2 class="theme-heading mb-4 text-2xl font-bold text-[#111827]">Recent samples vs historical growth</h2>
+            <div class="theme-copy space-y-3 text-sm leading-relaxed text-gray-500">
+                <p>Public APIs do not provide full follower history. LiveHandle does not fabricate multi-month curves. Treat charts as current or recent-sample evidence only.</p>
+                <p>Instagram on this screen still shows the live follower snapshot when available, but public per-post view totals are often missing, so view bars stay empty rather than guessed.</p>
+            </div>
+        </section>
+        <section id="support" class="theme-card mb-8 scroll-mt-24 rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="faq-heading">
+            <p class="mb-2 text-xs font-bold tracking-widest text-[#7c3aed]">SUPPORT</p><h2 id="faq-heading" class="theme-heading mb-5 text-2xl font-bold text-[#111827]">Frequently asked questions</h2>
+            <div class="divide-y divide-gray-200">
+                <article class="faq-item border-t border-gray-200 py-4 first:border-t-0 first:pt-0"><h3><button class="faq-trigger theme-heading flex w-full items-center justify-between gap-4 text-left font-semibold text-[#111827]" type="button" aria-expanded="false"><span>How are average views calculated?</span><i class="fa-solid fa-plus text-sm text-[#7c3aed]" aria-hidden="true"></i></button></h3><div class="faq-answer theme-copy mt-3 hidden text-sm leading-relaxed text-gray-500">From the live recent-video sample returned by public providers—typically up to the latest available posts with play counts. It is not a lifetime account average.</div></article>
+                <article class="faq-item border-t border-gray-200 py-4"><h3><button class="faq-trigger theme-heading flex w-full items-center justify-between gap-4 text-left font-semibold text-[#111827]" type="button" aria-expanded="false"><span>What does views per follower mean?</span><i class="fa-solid fa-plus text-sm text-[#7c3aed]" aria-hidden="true"></i></button></h3><div class="faq-answer theme-copy mt-3 hidden text-sm leading-relaxed text-gray-500">Recent-sample average views divided by current followers. It helps compare short-form reach to audience size for that sample only.</div></article>
+                <article class="faq-item border-t border-gray-200 py-4"><h3><button class="faq-trigger theme-heading flex w-full items-center justify-between gap-4 text-left font-semibold text-[#111827]" type="button" aria-expanded="false"><span>Does LiveHandle have historical TikTok growth data?</span><i class="fa-solid fa-plus text-sm text-[#7c3aed]" aria-hidden="true"></i></button></h3><div class="faq-answer theme-copy mt-3 hidden text-sm leading-relaxed text-gray-500">Not by default. Public APIs do not provide full follower history, and LiveHandle does not invent historical curves.</div></article>
+                <article class="faq-item border-t border-gray-200 py-4 last:pb-0"><h3><button class="faq-trigger theme-heading flex w-full items-center justify-between gap-4 text-left font-semibold text-[#111827]" type="button" aria-expanded="false"><span>Why can recent video performance vary?</span><i class="fa-solid fa-plus text-sm text-[#7c3aed]" aria-hidden="true"></i></button></h3><div class="faq-answer theme-copy mt-3 hidden text-sm leading-relaxed text-gray-500">Hooks, timing, topics, and distribution all change. A single viral post can sit far above the recent-sample average—LiveHandle surfaces that as a live multiplier when data exists.</div></article>
+            </div>
+        </section>
+        <div class="theme-divider" aria-hidden="true"></div>
+        <section class="theme-card mb-8 rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm sm:p-8">
+            <p class="mb-2 text-xs font-bold tracking-widest text-[#7c3aed]">EXPLORE</p><h2 class="theme-heading mb-5 text-2xl font-bold text-[#111827]">Related tools</h2>
+            <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <a href="tiktok-analyzer.html" class="theme-link flex items-center justify-between rounded-xl border border-gray-200 bg-white p-4 text-sm font-semibold text-gray-700 transition-all hover:border-purple-200 hover:text-[#7c3aed]"><span><i class="fa-brands fa-tiktok mr-3 text-[#7c3aed]" aria-hidden="true"></i>TikTok Profile Analyzer</span><i class="fa-solid fa-chevron-right text-xs" aria-hidden="true"></i></a>
+                <a href="learn.html" class="theme-link flex items-center justify-between rounded-xl border border-gray-200 bg-white p-4 text-sm font-semibold text-gray-700 transition-all hover:border-purple-200 hover:text-[#7c3aed]"><span><i class="fa-solid fa-chart-line mr-3 text-[#7c3aed]" aria-hidden="true"></i>Understanding TikTok growth metrics</span><i class="fa-solid fa-chevron-right text-xs" aria-hidden="true"></i></a>
+                <a href="#engagement-calculator" class="calculator-open theme-link flex items-center justify-between rounded-xl border border-gray-200 bg-white p-4 text-sm font-semibold text-gray-700 transition-all hover:border-purple-200 hover:text-[#7c3aed]"><span><i class="fa-solid fa-calculator mr-3 text-[#7c3aed]" aria-hidden="true"></i>TikTok Engagement Calculator</span><i class="fa-solid fa-chevron-right text-xs" aria-hidden="true"></i></a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer bg-[#171726] text-[#a19bb3]">
+        <div class="mx-auto max-w-7xl px-6 py-10 sm:py-12">
+            <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-[1.25fr_1fr_1fr_1fr]">
+                <section aria-labelledby="footer-brand-heading">
+                    <a href="index.html" class="inline-flex items-center gap-3 no-underline transition-all hover:no-underline">
+                        <span class="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full">
+                            <img src="assets/livehandle-logo.png" alt="" class="h-full w-full object-contain">
+                        </span>
+                        <span id="footer-brand-heading" class="text-xl font-extrabold"><span class="text-white">Live</span><span class="bg-gradient-to-r from-[#8f6bf2] to-[#6c3ce9] bg-clip-text text-transparent">Handle</span></span>
+                    </a>
+                    <p class="text-[#a19bb3] text-xs leading-relaxed mb-4 max-w-xs">Free tools for public social-media profile signals and creator metrics. Authenticity scores are analytical signals &mdash; not identity verification.</p>
+                    <div class="bg-[#120e24] border border-[#231b3e] rounded-2xl p-4 grid grid-cols-3 gap-2 text-xs">
+                        <div class="flex items-start gap-3"><i class="fa-solid fa-shield text-lg text-[#8f6bf2]" aria-hidden="true"></i><div class="flex flex-col gap-1"><span class="text-white font-semibold">Free to use</span><span class="text-[#a19bb3]">Always</span></div></div>
+                        <div class="flex items-start gap-3"><i class="fa-solid fa-bolt text-lg text-[#8f6bf2]" aria-hidden="true"></i><div class="flex flex-col gap-1"><span class="text-white font-semibold">Fast &amp; Reliable</span><span class="text-[#a19bb3] leading-snug">Live public data when available</span></div></div>
+                        <div class="flex items-start gap-3"><i class="fa-solid fa-lock text-lg text-[#8f6bf2]" aria-hidden="true"></i><div class="flex flex-col gap-1"><span class="text-white font-semibold">Privacy focused</span><span class="text-[#a19bb3]">Public data only</span></div></div>
+                    </div>
+                </section>
+                <nav aria-labelledby="footer-tools-heading">
+                    <h2 id="footer-tools-heading" class="text-[#8f6bf2] text-xs font-bold tracking-widest uppercase mb-4">TOOLS</h2>
+                    <ul>
+                        <li><a href="instagram-analyzer.html" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-brands fa-instagram text-[#bcb5ff]" aria-hidden="true"></i>Instagram analyzer</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                        <li><a href="tiktok-analyzer.html" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-brands fa-tiktok text-[#bcb5ff]" aria-hidden="true"></i>TikTok analyzer</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                        <li><a href="tiktok-growth.html" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-solid fa-chart-line text-[#bcb5ff]" aria-hidden="true"></i>TikTok growth</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                        <li><a href="video-downloader.html" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-solid fa-download text-[#bcb5ff]" aria-hidden="true"></i>Video downloader</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                        <li><a href="#" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-solid fa-heart text-[#bcb5ff]" aria-hidden="true"></i>IG engagement</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                        <li><a href="#" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-solid fa-comment text-[#bcb5ff]" aria-hidden="true"></i>TT engagement</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                        <li><a href="content-trends.html" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-solid fa-fire text-[#bcb5ff]" aria-hidden="true"></i>Trends</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                    </ul>
+                </nav>
+                <nav aria-labelledby="footer-learn-heading">
+                    <h2 id="footer-learn-heading" class="text-[#8f6bf2] text-xs font-bold tracking-widest uppercase mb-4">LEARN</h2>
+                    <ul>
+                        <li><a href="learn.html" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-solid fa-book-open text-[#bcb5ff]" aria-hidden="true"></i>Learn</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                        <li><a href="about.html" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-solid fa-circle-info text-[#bcb5ff]" aria-hidden="true"></i>About</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                        <li><a href="about.html" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-solid fa-gear text-[#bcb5ff]" aria-hidden="true"></i>How it works</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                    </ul>
+                </nav>
+                <div>
+                    <nav aria-labelledby="footer-legal-heading">
+                        <h2 id="footer-legal-heading" class="text-[#8f6bf2] text-xs font-bold tracking-widest uppercase mb-4">LEGAL</h2>
+                        <ul>
+                            <li><a href="about.html#trust" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-solid fa-shield text-[#bcb5ff]" aria-hidden="true"></i>Privacy</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                            <li><a href="about.html#disclaimer" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-solid fa-file-lines text-[#bcb5ff]" aria-hidden="true"></i>Terms</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                            <li><a href="about.html#disclaimer" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-solid fa-scale-balanced text-[#bcb5ff]" aria-hidden="true"></i>Copyright</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                            <li><a href="contact.html" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-solid fa-envelope text-[#bcb5ff]" aria-hidden="true"></i>Contact</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </nav>
+                    <section class="mt-6" aria-labelledby="footer-note-heading">
+                        <h2 id="footer-note-heading" class="text-[#8f6bf2] text-xs font-bold tracking-widest uppercase mb-4">NOTE</h2>
+                        <div class="bg-[#120e24] border border-[#231b3e] rounded-2xl p-4 text-xs text-[#a19bb3] flex gap-3 items-start">
+                            <span class="w-6 h-6 rounded-full bg-[#201939] text-[#8f6bf2] flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-circle-info" aria-hidden="true"></i></span>
+                            <p>Public data only. Availability depends on platforms and providers. Do not download content you are not authorized to use.</p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div class="w-full border-t border-[#231b3e] shadow-[0_-2px_15px_rgba(108,60,233,0.35)] my-8" aria-hidden="true"></div>
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#7e7694] py-6">
+                <p>&copy; 2026 <span class="text-white font-semibold">LiveHandle</span>. Free public analytics toolkit.</p>
+                <p>Made with <i class="fa-solid fa-heart text-[#8f6bf2] mx-1" aria-label="love"></i> for creators</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="calculatorModal" class="modal-backdrop fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4" hidden>
+        <section role="dialog" aria-modal="true" aria-labelledby="calculator-title" class="theme-card w-full max-w-md rounded-3xl border border-gray-200 bg-white p-6 shadow-2xl sm:p-8">
+            <div class="mb-5 flex items-start justify-between gap-4"><div><p class="mb-2 text-xs font-bold tracking-widest text-[#7c3aed]">TIKTOK TOOL</p><h2 id="calculator-title" class="theme-heading text-2xl font-bold text-[#111827]">Engagement calculator</h2></div><button id="closeCalculator" type="button" class="theme-control flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600" aria-label="Close calculator"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></div>
+            <p class="theme-copy mb-5 text-sm text-gray-500">Estimate engagement from the metrics you enter. Formula: hearts ÷ videos ÷ followers × 100.</p>
+            <form id="calculatorForm" class="space-y-4">
+                <label class="block text-sm font-medium">Followers<input name="followers" type="number" min="1" step="1" required class="theme-input mt-1 w-full rounded-xl border border-gray-200 bg-[#f5f4fa] px-4 py-3 text-gray-800"></label>
+                <label class="block text-sm font-medium">Total hearts<input name="hearts" type="number" min="0" step="1" required class="theme-input mt-1 w-full rounded-xl border border-gray-200 bg-[#f5f4fa] px-4 py-3 text-gray-800"></label>
+                <label class="block text-sm font-medium">Videos in sample<input name="videos" type="number" min="1" step="1" required class="theme-input mt-1 w-full rounded-xl border border-gray-200 bg-[#f5f4fa] px-4 py-3 text-gray-800"></label>
+                <button type="submit" class="w-full rounded-xl bg-[#6344f5] py-4 font-bold text-white shadow-[0_4px_20px_rgba(99,68,245,0.35)] transition-all hover:bg-[#5234e2]">Calculate rate</button><p id="calculatorResult" class="theme-copy min-h-6 text-sm text-gray-500" role="status" aria-live="polite"></p>
+            </form>
+        </section>
+    </div>
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        function updateThemeButton() {
+            const dark = document.documentElement.classList.contains('dark');
+            themeToggle.innerHTML = `<i class="fa-solid ${dark ? 'fa-sun' : 'fa-moon'}" aria-hidden="true"></i>`;
+            themeToggle.setAttribute('aria-label', `Switch to ${dark ? 'light' : 'dark'} mode`);
+            document.querySelector('meta[name="theme-color"]').content = dark ? '#0d0b18' : '#f5f4fa';
+        }
+        themeToggle.addEventListener('click', () => {
+            const dark = !document.documentElement.classList.contains('dark');
+            document.documentElement.classList.toggle('dark', dark);
+            document.documentElement.classList.toggle('dark-mode', dark);
+            document.body.classList.toggle('dark-mode', dark);
+            try { localStorage.setItem('theme', dark ? 'dark' : 'light'); }
+            catch (error) { console.warn('Unable to save the theme preference.', error); }
+            updateThemeButton();
+        });
+        updateThemeButton();
+        document.querySelectorAll('.faq-trigger').forEach((trigger) => trigger.addEventListener('click', () => {
+            const open = trigger.getAttribute('aria-expanded') === 'true';
+            document.querySelectorAll('.faq-trigger').forEach((item) => {
+                item.setAttribute('aria-expanded', 'false');
+                item.querySelector('i').className = 'fa-solid fa-plus text-sm text-[#7c3aed]';
+                item.closest('.faq-item').querySelector('.faq-answer').classList.add('hidden');
+            });
+            if (!open) {
+                trigger.setAttribute('aria-expanded', 'true');
+                trigger.querySelector('i').className = 'fa-solid fa-minus text-sm text-[#7c3aed]';
+                trigger.closest('.faq-item').querySelector('.faq-answer').classList.remove('hidden');
+            }
+        }));
+        document.querySelectorAll('.platform-choice').forEach((button) => button.addEventListener('click', () => {
+            document.getElementById('growth-platform').value = button.dataset.platform;
+            document.querySelectorAll('.platform-choice').forEach((item) => {
+                const active = item === button;
+                item.setAttribute('aria-pressed', String(active));
+                item.classList.toggle('border-[#7c3aed]', active);
+                item.classList.toggle('bg-[#eeeafc]', active);
+                item.classList.toggle('text-[#7c3aed]', active);
+            });
+        }));
+        document.getElementById('growth-platform').addEventListener('change', (event) => {
+            document.querySelectorAll('.platform-choice').forEach((item) => {
+                const active = item.dataset.platform === event.currentTarget.value;
+                item.setAttribute('aria-pressed', String(active));
+                item.classList.toggle('border-[#7c3aed]', active);
+                item.classList.toggle('bg-[#eeeafc]', active);
+                item.classList.toggle('text-[#7c3aed]', active);
+            });
+        });
+        document.getElementById('growthForm').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const username = document.getElementById('growth-username');
+            const status = document.getElementById('growth-status');
+            if (!/^[A-Za-z0-9._]{1,30}$/.test(username.value.trim())) {
+                status.textContent = 'Enter a valid public username using letters, numbers, periods, or underscores.';
+                username.focus();
+                return;
+            }
+            status.textContent = 'A live report cannot be loaded because this site does not have a connected public metrics provider yet.';
+        });
+        const modal = document.getElementById('calculatorModal');
+        const calculatorLink = document.querySelectorAll('.calculator-open');
+        const closeCalculator = document.getElementById('closeCalculator');
+        let returnFocus = null;
+        function openCalculator(event) {
+            event.preventDefault();
+            returnFocus = event.currentTarget;
+            modal.hidden = false;
+            closeCalculator.focus();
+        }
+        calculatorLink.forEach((link) => link.addEventListener('click', openCalculator));
+        function hideCalculator() { modal.hidden = true; if (returnFocus) returnFocus.focus(); }
+        closeCalculator.addEventListener('click', hideCalculator);
+        modal.addEventListener('click', (event) => { if (event.target === modal) hideCalculator(); });
+        document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !modal.hidden) hideCalculator(); });
+        document.getElementById('calculatorForm').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const values = new FormData(event.currentTarget);
+            const followers = Number(values.get('followers'));
+            const hearts = Number(values.get('hearts'));
+            const videos = Number(values.get('videos'));
+            if (!Number.isFinite(followers) || followers <= 0 || !Number.isFinite(videos) || videos <= 0) return;
+            const rate = (hearts / videos / followers) * 100;
+            document.getElementById('calculatorResult').textContent = `Estimated engagement rate: ${rate.toFixed(2)}% per video.`;
+        });
+    </script>
+</body>
+</html>

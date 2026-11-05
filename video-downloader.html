@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0d0b18">
+    <title>Social Media Video Downloader - LiveHandle</title>
+    <script>
+        try {
+            const savedTheme = localStorage.getItem('theme') || localStorage.getItem('livehandle-theme');
+            const dark = savedTheme !== 'light';
+            document.documentElement.classList.toggle('dark', dark);
+            document.documentElement.classList.toggle('dark-mode', dark);
+        } catch (error) {
+            console.warn('Unable to read the saved theme preference.', error);
+            document.documentElement.classList.add('dark', 'dark-mode');
+        }
+    </script>
+    <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="input.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #f3f1fa, #f8f7fc);
+            color: #111827;
+        }
+
+        .theme-card {
+            transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease;
+        }
+
+        body.dark-mode {
+            background: radial-gradient(ellipse at top, rgba(35, 23, 73, .4), #0d0b18 58%, #0d0b18);
+            color: #f9fafb;
+        }
+
+        body.dark-mode .site-header {
+            background-color: transparent;
+            border-color: transparent;
+        }
+
+        body.dark-mode .site-nav,
+        body.dark-mode .theme-control {
+            background-color: rgba(22, 18, 38, 0.8);
+            border-color: #2a2442;
+        }
+        body.dark-mode .theme-card {
+            background-color: rgba(18, 13, 36, 0.9);
+            border-color: #231b3c;
+        }
+
+        .site-nav .theme-link {
+            transition: none;
+        }
+
+        body:not(.dark-mode) .site-nav .theme-link:hover {
+            background-color: #f3f4f6;
+            color: #111827;
+        }
+
+        body.dark-mode .site-nav .theme-link {
+            color: #9ca3af;
+        }
+
+        body.dark-mode .site-nav .theme-link:hover {
+            background-color: #201939;
+            color: #ffffff !important;
+        }
+
+        body.dark-mode .download-app-link {
+            background-color: #201939;
+            border-color: #342a5c;
+            color: #8b5cf6;
+        }
+
+        body.dark-mode .download-app-link:hover {
+            background-color: #2b224d;
+        }
+
+        body.dark-mode .theme-control {
+            background-color: #161226;
+            border-color: #2a2442;
+            color: #9ca3af;
+        }
+
+        body.dark-mode .theme-control:hover {
+            background-color: #201939;
+            color: #ffffff;
+        }
+
+        body.dark-mode .theme-heading {
+            color: #f9fafb;
+        }
+
+        body.dark-mode .theme-copy,
+        body.dark-mode .theme-link {
+            color: #a19bb3;
+        }
+
+        body.dark-mode .theme-link:hover {
+            color: #8f6bf2;
+        }
+
+        body.dark-mode .theme-input {
+            background-color: #090614;
+            border-color: #231b3c;
+            color: #ffffff;
+        }
+
+        body.dark-mode .theme-tint {
+            background-color: #201939;
+            border-color: #342a5c;
+        }
+
+        body.dark-mode main .theme-link {
+            background-color: #120d22;
+            border-color: #342a5c;
+        }
+
+        body.dark-mode .faq-item {
+            border-color: #342a5c;
+        }
+
+        body.dark-mode .theme-badge-title {
+            color: #ffffff;
+        }
+
+        body.dark-mode .theme-footer {
+            background-color: #0a0712;
+            border-color: #231b3c;
+        }
+    </style>
+</head>
+
+<body class="bg-[#0d0b18] text-white bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#231749]/40 via-[#0d0b18] to-[#0d0b18] min-h-screen font-sans text-[#111827] selection:bg-[#7c3aed] selection:text-white">
+    <script>document.body.classList.toggle('dark-mode', document.documentElement.classList.contains('dark'));</script>
+    <header class="site-header sticky top-0 z-50 border-b-0 bg-[#f5f4fa]/90 backdrop-blur-md">
+        <nav class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6" aria-label="Main navigation">
+            <a href="index.html" class="flex shrink-0 items-center gap-2 no-underline transition-all hover:opacity-80 hover:no-underline" aria-label="LiveHandle home">
+                <span class="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full">
+                    <img src="assets/livehandle-logo.png" alt="" class="h-full w-full object-contain">
+                </span>
+                <span class="header-brand-text theme-heading text-lg font-extrabold tracking-tight"><span class="header-brand-live">Live</span><span class="header-brand-handle">Handle</span></span>
+            </a>
+
+            <div class="site-nav hidden items-center gap-1 rounded-full border border-gray-200/80 bg-white px-2 py-1.5 shadow-md dark:border-[#2a2442] dark:bg-[#161226]/80 lg:flex">
+                <a href="index.html" class="theme-link rounded-full px-3.5 py-1.5 text-xs font-medium text-gray-600 no-underline hover:no-underline dark:text-[#9ca3af] dark:hover:bg-[#201939] dark:hover:text-white">Home</a>
+                <a href="video-downloader.html" class="rounded-full bg-[#6344f5] px-5 py-1.5 text-xs font-semibold text-white no-underline shadow-[0_0_12px_rgba(99,68,245,0.4)] transition-all hover:no-underline" aria-current="page">Download</a>
+                <a href="tiktok-growth.html" class="theme-link rounded-full px-3.5 py-1.5 text-xs font-medium text-gray-600 no-underline hover:no-underline dark:text-[#9ca3af] dark:hover:bg-[#201939] dark:hover:text-white">Growth</a>
+                <a href="content-trends.html" class="theme-link rounded-full px-3.5 py-1.5 text-xs font-medium text-gray-600 no-underline hover:no-underline dark:text-[#9ca3af] dark:hover:bg-[#201939] dark:hover:text-white">Trends</a>
+                <a href="learn.html" class="theme-link rounded-full px-3.5 py-1.5 text-xs font-medium text-gray-600 no-underline hover:no-underline dark:text-[#9ca3af] dark:hover:bg-[#201939] dark:hover:text-white">Learn</a>
+                <a href="about.html" class="theme-link rounded-full px-3.5 py-1.5 text-xs font-medium text-gray-600 no-underline hover:no-underline dark:text-[#9ca3af] dark:hover:bg-[#201939] dark:hover:text-white">About</a>
+                <a href="contact.html" class="theme-link rounded-full px-3.5 py-1.5 text-xs font-medium text-gray-600 no-underline hover:no-underline dark:text-[#9ca3af] dark:hover:bg-[#201939] dark:hover:text-white">Contact</a>
+            </div>
+
+            <div class="flex shrink-0 items-center gap-2">
+                <a href="downloads/LiveHandle.apk" download="LiveHandle.apk" class="download-app-link hidden items-center gap-2 rounded-full border border-purple-200 bg-[#eeeafc] px-4 py-2 text-xs font-semibold text-[#7c3aed] no-underline transition-all hover:bg-[#e4ddfa] hover:no-underline dark:border-[#342a5c] dark:bg-[#201939] dark:text-[#8b5cf6] dark:hover:bg-[#2b224d] sm:inline-flex">
+                    <i class="fa-brands fa-android" aria-hidden="true"></i><span class="hidden xl:inline">Download App</span><span class="xl:hidden">App</span>
+                </a>
+                <button id="themeToggle" type="button" class="theme-control flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-xs text-gray-600 transition-all hover:bg-gray-100 dark:border-[#2a2442] dark:bg-[#161226] dark:text-[#9ca3af] dark:hover:text-white" aria-label="Switch to dark mode">
+                    <i class="fa-solid fa-sun" aria-hidden="true"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="mx-auto w-full max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
+        <section class="mb-8 text-center" aria-labelledby="page-title">
+            <span class="inline-flex rounded-full bg-[#eeeafc] px-4 py-1.5 text-xs font-medium text-[#7c3aed]">Public links · preview and download</span>
+            <h1 id="page-title" class="theme-heading my-4 text-3xl font-extrabold text-[#111827] sm:text-4xl">Social Media Video Downloader</h1>
+            <p class="theme-copy mx-auto max-w-3xl text-sm leading-relaxed text-gray-500 sm:text-base">
+                Paste a public Instagram, TikTok, or Facebook video link to preview and download the resolved media file when providers allow it. LiveHandle works as an online social media video downloader for public, provider-accessible media. Only download content you own or are authorized to use.
+            </p>
+            <div class="mt-5 flex flex-wrap items-center justify-center gap-2">
+                <span class="theme-card theme-copy inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-xs font-semibold text-gray-700 shadow-sm"><i class="fa-brands fa-instagram text-[#7c3aed]" aria-hidden="true"></i>Instagram</span>
+                <span class="theme-card theme-copy inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-xs font-semibold text-gray-700 shadow-sm"><i class="fa-brands fa-tiktok text-[#7c3aed]" aria-hidden="true"></i>TikTok</span>
+                <span class="theme-card theme-copy inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-xs font-semibold text-gray-700 shadow-sm"><i class="fa-brands fa-facebook text-[#7c3aed]" aria-hidden="true"></i>Facebook</span>
+            </div>
+        </section>
+
+        <section class="theme-card mb-8 rounded-3xl border border-gray-200/80 bg-white p-5 shadow-sm sm:p-8" aria-labelledby="video-link-heading">
+            <p class="mb-2 text-xs font-bold tracking-widest text-[#7c3aed]">VIDEO LINK</p>
+            <h2 id="video-link-heading" class="theme-heading mb-5 text-2xl font-bold text-[#111827]">Preview a public video</h2>
+            <form id="dlForm" class="space-y-4" novalidate>
+                <label for="video-url" class="sr-only">Public video URL</label>
+                <div class="theme-input flex items-center overflow-hidden rounded-xl border border-[#231b3c] bg-[#090614] transition-all focus-within:border-[#6344f5]">
+                    <span class="px-4 text-[#8f6bf2]" aria-hidden="true"><i class="fa-solid fa-link"></i></span>
+                    <input type="url" id="video-url" name="video-url" placeholder="https://www.tiktok.com/@user/video/..." autocomplete="url" class="theme-input w-full bg-transparent py-3.5 pr-4 text-sm text-white outline-none placeholder:text-[#554b73]" aria-describedby="url-error" required>
+                </div>
+                <p id="url-error" class="hidden text-sm text-red-600" role="alert"></p>
+                <button type="submit" class="flex w-full items-center justify-center gap-2 rounded-xl bg-[#6344f5] py-4 font-bold text-white shadow-[0_4px_20px_rgba(99,68,245,0.35)] transition-all hover:bg-[#5234e2] disabled:cursor-wait disabled:opacity-70">
+                    <i class="fa-solid fa-play" aria-hidden="true"></i> Get preview
+                </button>
+            </form>
+
+            <div class="theme-tint mt-4 grid grid-cols-1 gap-3 rounded-2xl border border-purple-100 bg-[#eeeafc] p-4 sm:grid-cols-3">
+                <div class="flex items-center gap-3"><i class="fa-solid fa-bolt text-[#7c3aed]" aria-hidden="true"></i><span><span class="theme-badge-title block text-xs font-bold text-gray-800">Fast resolve</span><span class="theme-copy text-[11px] text-gray-500">Public links</span></span></div>
+                <div class="flex items-center gap-3"><i class="fa-solid fa-eye text-[#7c3aed]" aria-hidden="true"></i><span><span class="theme-badge-title block text-xs font-bold text-gray-800">Live preview</span><span class="theme-copy text-[11px] text-gray-500">Before download</span></span></div>
+                <div class="flex items-center gap-3"><i class="fa-solid fa-lock text-[#7c3aed]" aria-hidden="true"></i><span><span class="theme-badge-title block text-xs font-bold text-gray-800">Auth only</span><span class="theme-copy text-[11px] text-gray-500">Your rights</span></span></div>
+            </div>
+
+            <div id="preview-result" class="theme-card mt-4 hidden rounded-xl border border-gray-200 bg-white p-4 text-sm" role="status" aria-live="polite"></div>
+
+            <div class="theme-card mt-4 flex items-start gap-2 rounded-3xl border border-[#231b3c] bg-[#120d24]/90 p-6 text-xs leading-relaxed text-[#a19bb3] shadow-sm sm:p-8">
+                <i class="fa-solid fa-circle-info mt-0.5 text-[#7c3aed]" aria-hidden="true"></i>
+                <p class="theme-copy">Only download content you are authorized to use. Availability depends on public, provider-accessible media. Private or restricted posts usually cannot be resolved.</p>
+            </div>
+        </section>
+
+        <section class="theme-card mb-8 rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="steps-heading">
+            <p class="mb-2 text-xs font-bold tracking-widest text-[#7c3aed]">STEPS</p>
+            <h2 id="steps-heading" class="theme-heading mb-6 text-2xl font-bold text-[#111827]">How to download social media videos</h2>
+            <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+                <article class="flex items-start gap-4"><span class="theme-tint flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#eeeafc] font-bold text-[#7c3aed]">1</span><div><h3 class="theme-heading mb-2 font-bold text-[#111827]">Paste a complete public URL</h3><p class="theme-copy text-sm leading-relaxed text-gray-500">Use a full Instagram reel/post, TikTok video, or Facebook video link. Incomplete or private URLs usually fail.</p></div></article>
+                <article class="flex items-start gap-4"><span class="theme-tint flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#eeeafc] font-bold text-[#7c3aed]">2</span><div><h3 class="theme-heading mb-2 font-bold text-[#111827]">Preview the resolved media</h3><p class="theme-copy text-sm leading-relaxed text-gray-500">If the provider returns a media URL, LiveHandle shows a preview before download. Photo slideshows may be packed briefly for download.</p></div></article>
+                <article class="flex items-start gap-4"><span class="theme-tint flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#eeeafc] font-bold text-[#7c3aed]">3</span><div><h3 class="theme-heading mb-2 font-bold text-[#111827]">Download only what you may use</h3><p class="theme-copy text-sm leading-relaxed text-gray-500">Respect copyright and platform terms. LiveHandle is a resolver and proxy, not a media hosting archive.</p></div></article>
+            </div>
+        </section>
+
+        <section id="support" class="theme-card mb-8 rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm sm:p-8">
+            <p class="mb-2 text-xs font-bold tracking-widest text-[#7c3aed]">SUPPORT</p>
+            <h2 class="theme-heading mb-4 text-2xl font-bold text-[#111827]">Online social media video downloader support</h2>
+            <div class="theme-copy space-y-3 text-sm leading-relaxed text-gray-500">
+                <p>The resolver accepts public Instagram, TikTok, and Facebook video or reel links. It is a social media video downloader for those public sources — not a tool for private stories, DMs, or “any video on the internet.”</p>
+                <p>Availability depends on the provider and the public status of the post. Deleted, region-locked, or restricted posts return an error instead of a guessed file.</p>
+            </div>
+        </section>
+
+        <section class="theme-card mb-8 rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm sm:p-8">
+            <p class="mb-2 text-xs font-bold tracking-widest text-[#7c3aed]">TIKTOK</p>
+            <h2 class="theme-heading mb-4 text-2xl font-bold text-[#111827]">TikTok video downloader</h2>
+            <div class="theme-copy space-y-3 text-sm leading-relaxed text-gray-500">
+                <p>For public TikTok links, LiveHandle resolves the media source returned by the provider and lets you preview the video before saving it.</p>
+                <p>Photo slideshows and unsupported TikTok formats can behave differently because providers package those media types separately.</p>
+            </div>
+        </section>
+
+        <section class="theme-card mb-8 rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm sm:p-8">
+            <p class="mb-2 text-xs font-bold tracking-widest text-[#7c3aed]">INSTAGRAM</p>
+            <h2 class="theme-heading mb-4 text-2xl font-bold text-[#111827]">Instagram video and reels downloader</h2>
+            <div class="theme-copy space-y-3 text-sm leading-relaxed text-gray-500">
+                <p>For public Instagram reels and video posts, the resolver downloads the media URL returned by the provider when it is available. Private, deleted, or restricted Instagram media cannot be fetched.</p>
+                <p>Use the downloader only for media you own or have permission to save. LiveHandle does not grant reuse rights for other people’s content.</p>
+            </div>
+        </section>
+
+        <section class="theme-tint mb-8 rounded-3xl border border-purple-100 bg-[#eeeafc] p-6 sm:p-8">
+            <p class="mb-2 text-xs font-bold tracking-widest text-[#7c3aed]">LEGAL</p>
+            <h2 class="theme-heading mb-3 text-2xl font-bold text-[#111827]">Authorization and copyright</h2>
+            <p class="theme-copy text-sm leading-relaxed text-gray-600">Only download content you own or are authorized to download. LiveHandle does not grant rights to other people’s videos.</p>
+        </section>
+
+        <section class="theme-card mb-8 rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="faq-heading">
+            <p class="mb-2 text-xs font-bold tracking-widest text-[#7c3aed]">SUPPORT</p>
+            <h2 id="faq-heading" class="theme-heading mb-5 text-2xl font-bold text-[#111827]">Frequently asked questions</h2>
+            <div class="divide-y divide-gray-200">
+                <article class="faq-item border-t border-gray-200 py-4 first:border-t-0 first:pt-0">
+                    <h3><button type="button" class="theme-heading flex w-full items-center justify-between gap-4 text-left font-semibold text-[#111827] transition-all" aria-expanded="true" aria-controls="faq-answer-1"><span>Can LiveHandle download social media videos?</span><i class="fa-solid fa-minus text-sm text-[#7c3aed]" aria-hidden="true"></i></button></h3>
+                    <div id="faq-answer-1" class="faq-answer theme-copy mt-3 text-sm leading-relaxed text-gray-500">LiveHandle can resolve public Instagram, TikTok, and Facebook media links when providers return a downloadable file. Private, restricted, or deleted posts are not supported.</div>
+                </article>
+                <article class="faq-item border-t border-gray-200 py-4">
+                    <h3><button type="button" class="theme-heading flex w-full items-center justify-between gap-4 text-left font-semibold text-[#111827] transition-all" aria-expanded="false" aria-controls="faq-answer-2"><span>Can I download Instagram reels?</span><i class="fa-solid fa-plus text-sm text-[#7c3aed]" aria-hidden="true"></i></button></h3>
+                    <div id="faq-answer-2" class="faq-answer theme-copy mt-3 hidden text-sm leading-relaxed text-gray-500">Public Instagram reels and video posts can be saved from the resolved media URL when the provider returns it. Private or restricted reels cannot be downloaded.</div>
+                </article>
+                <article class="faq-item border-t border-gray-200 py-4">
+                    <h3><button type="button" class="theme-heading flex w-full items-center justify-between gap-4 text-left font-semibold text-[#111827] transition-all" aria-expanded="false" aria-controls="faq-answer-3"><span>Which public links can be processed?</span><i class="fa-solid fa-plus text-sm text-[#7c3aed]" aria-hidden="true"></i></button></h3>
+                    <div id="faq-answer-3" class="faq-answer theme-copy mt-3 hidden text-sm leading-relaxed text-gray-500">Public Instagram, TikTok, and Facebook video or reel links that the resolver can reach. Private or restricted media usually cannot be downloaded.</div>
+                </article>
+                <article class="faq-item border-t border-gray-200 py-4">
+                    <h3><button type="button" class="theme-heading flex w-full items-center justify-between gap-4 text-left font-semibold text-[#111827] transition-all" aria-expanded="false" aria-controls="faq-answer-4"><span>Can I download private videos?</span><i class="fa-solid fa-plus text-sm text-[#7c3aed]" aria-hidden="true"></i></button></h3>
+                    <div id="faq-answer-4" class="faq-answer theme-copy mt-3 hidden text-sm leading-relaxed text-gray-500">No. Private, geo-blocked, deleted, or restricted posts are not supported.</div>
+                </article>
+                <article class="faq-item border-t border-gray-200 py-4">
+                    <h3><button type="button" class="theme-heading flex w-full items-center justify-between gap-4 text-left font-semibold text-[#111827] transition-all" aria-expanded="false" aria-controls="faq-answer-5"><span>Does LiveHandle host the original media permanently?</span><i class="fa-solid fa-plus text-sm text-[#7c3aed]" aria-hidden="true"></i></button></h3>
+                    <div id="faq-answer-5" class="faq-answer theme-copy mt-3 hidden text-sm leading-relaxed text-gray-500">Resolved streams are proxied for download. Temporary processing files may exist briefly for photo slideshows; LiveHandle is not a media hosting archive.</div>
+                </article>
+                <article class="faq-item border-t border-gray-200 py-4 last:pb-0">
+                    <h3><button type="button" class="theme-heading flex w-full items-center justify-between gap-4 text-left font-semibold text-[#111827] transition-all" aria-expanded="false" aria-controls="faq-answer-6"><span>What if a link cannot be resolved?</span><i class="fa-solid fa-plus text-sm text-[#7c3aed]" aria-hidden="true"></i></button></h3>
+                    <div id="faq-answer-6" class="faq-answer theme-copy mt-3 hidden text-sm leading-relaxed text-gray-500">Check that the URL is public and complete, then retry. Provider blocks, deletions, or unsupported formats return a clear error.</div>
+                </article>
+            </div>
+        </section>
+
+        <section class="theme-card mb-8 rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm sm:p-8">
+            <p class="mb-2 text-xs font-bold tracking-widest text-[#7c3aed]">EXPLORE</p>
+            <h2 class="theme-heading mb-5 text-2xl font-bold text-[#111827]">Related tools</h2>
+            <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                <a href="tiktok-growth.html" class="theme-link flex items-center justify-between gap-3 rounded-xl border border-gray-200 bg-white p-4 text-sm font-semibold text-gray-700 no-underline transition-all hover:border-purple-200 hover:text-[#7c3aed] hover:no-underline"><span><i class="fa-brands fa-tiktok mr-3 text-[#7c3aed]" aria-hidden="true"></i>Analyze a TikTok account</span><i class="fa-solid fa-chevron-right text-xs text-gray-400" aria-hidden="true"></i></a>
+                <a href="instagram-analyzer.html" class="theme-link flex items-center justify-between gap-3 rounded-xl border border-gray-200 bg-white p-4 text-sm font-semibold text-gray-700 no-underline transition-all hover:border-purple-200 hover:text-[#7c3aed] hover:no-underline"><span><i class="fa-brands fa-instagram mr-3 text-[#7c3aed]" aria-hidden="true"></i>Analyze an Instagram profile</span><i class="fa-solid fa-chevron-right text-xs text-gray-400" aria-hidden="true"></i></a>
+                <a href="tiktok-growth.html" class="theme-link flex items-center justify-between gap-3 rounded-xl border border-gray-200 bg-white p-4 text-sm font-semibold text-gray-700 no-underline transition-all hover:border-purple-200 hover:text-[#7c3aed] hover:no-underline"><span><i class="fa-solid fa-chart-line mr-3 text-[#7c3aed]" aria-hidden="true"></i>Check TikTok views after download research</span><i class="fa-solid fa-chevron-right text-xs text-gray-400" aria-hidden="true"></i></a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer bg-[#171726] text-[#a19bb3]">
+        <div class="mx-auto max-w-7xl px-6 py-10 sm:py-12">
+            <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-[1.25fr_1fr_1fr_1fr]">
+                <section aria-labelledby="footer-brand-heading">
+                    <a href="index.html" class="inline-flex items-center gap-3 no-underline transition-all hover:no-underline">
+                        <span class="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full">
+                            <img src="assets/livehandle-logo.png" alt="" class="h-full w-full object-contain">
+                        </span>
+                        <span id="footer-brand-heading" class="text-xl font-extrabold"><span class="text-white">Live</span><span class="bg-gradient-to-r from-[#8f6bf2] to-[#6c3ce9] bg-clip-text text-transparent">Handle</span></span>
+                    </a>
+                    <p class="text-[#a19bb3] text-xs leading-relaxed mb-4 max-w-xs">Free tools for public social-media profile signals and creator metrics. Authenticity scores are analytical signals &mdash; not identity verification.</p>
+                    <div class="bg-[#120e24] border border-[#231b3e] rounded-2xl p-4 grid grid-cols-3 gap-2 text-xs">
+                        <div class="flex items-start gap-3"><i class="fa-solid fa-shield text-lg text-[#8f6bf2]" aria-hidden="true"></i><div class="flex flex-col gap-1"><span class="text-white font-semibold">Free to use</span><span class="text-[#a19bb3]">Always</span></div></div>
+                        <div class="flex items-start gap-3"><i class="fa-solid fa-bolt text-lg text-[#8f6bf2]" aria-hidden="true"></i><div class="flex flex-col gap-1"><span class="text-white font-semibold">Fast &amp; Reliable</span><span class="text-[#a19bb3] leading-snug">Live public data when available</span></div></div>
+                        <div class="flex items-start gap-3"><i class="fa-solid fa-lock text-lg text-[#8f6bf2]" aria-hidden="true"></i><div class="flex flex-col gap-1"><span class="text-white font-semibold">Privacy focused</span><span class="text-[#a19bb3]">Public data only</span></div></div>
+                    </div>
+                </section>
+                <nav aria-labelledby="footer-tools-heading">
+                    <h2 id="footer-tools-heading" class="text-[#8f6bf2] text-xs font-bold tracking-widest uppercase mb-4">TOOLS</h2>
+                    <ul>
+                        <li><a href="instagram-analyzer.html" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-brands fa-instagram text-[#bcb5ff]" aria-hidden="true"></i>Instagram analyzer</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                        <li><a href="tiktok-analyzer.html" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-brands fa-tiktok text-[#bcb5ff]" aria-hidden="true"></i>TikTok analyzer</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                        <li><a href="tiktok-growth.html" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-solid fa-chart-line text-[#bcb5ff]" aria-hidden="true"></i>TikTok growth</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                        <li><a href="video-downloader.html" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-solid fa-download text-[#bcb5ff]" aria-hidden="true"></i>Video downloader</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                        <li><a href="#" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-solid fa-heart text-[#bcb5ff]" aria-hidden="true"></i>IG engagement</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                        <li><a href="#" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-solid fa-comment text-[#bcb5ff]" aria-hidden="true"></i>TT engagement</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                        <li><a href="content-trends.html" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-solid fa-fire text-[#bcb5ff]" aria-hidden="true"></i>Trends</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                    </ul>
+                </nav>
+                <nav aria-labelledby="footer-learn-heading">
+                    <h2 id="footer-learn-heading" class="text-[#8f6bf2] text-xs font-bold tracking-widest uppercase mb-4">LEARN</h2>
+                    <ul>
+                        <li><a href="learn.html" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-solid fa-book-open text-[#bcb5ff]" aria-hidden="true"></i>Learn</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                        <li><a href="about.html" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-solid fa-circle-info text-[#bcb5ff]" aria-hidden="true"></i>About</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                        <li><a href="about.html" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-solid fa-gear text-[#bcb5ff]" aria-hidden="true"></i>How it works</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                    </ul>
+                </nav>
+                <div>
+                    <nav aria-labelledby="footer-legal-heading">
+                        <h2 id="footer-legal-heading" class="text-[#8f6bf2] text-xs font-bold tracking-widest uppercase mb-4">LEGAL</h2>
+                        <ul>
+                            <li><a href="about.html#trust" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-solid fa-shield text-[#bcb5ff]" aria-hidden="true"></i>Privacy</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                            <li><a href="about.html#disclaimer" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-solid fa-file-lines text-[#bcb5ff]" aria-hidden="true"></i>Terms</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                            <li><a href="about.html#disclaimer" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-solid fa-scale-balanced text-[#bcb5ff]" aria-hidden="true"></i>Copyright</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                            <li><a href="contact.html" class="text-[#d1cdde] hover:text-white hover:bg-[#1c1635] rounded-xl px-3 py-2 text-xs font-semibold flex items-center justify-between transition-all no-underline group hover:no-underline"><span class="flex items-center gap-3"><i class="fa-solid fa-envelope text-[#bcb5ff]" aria-hidden="true"></i>Contact</span><i class="fa-solid fa-chevron-right text-[10px] text-[#554b73] group-hover:text-white transition-all" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </nav>
+                    <section class="mt-6" aria-labelledby="footer-note-heading">
+                        <h2 id="footer-note-heading" class="text-[#8f6bf2] text-xs font-bold tracking-widest uppercase mb-4">NOTE</h2>
+                        <div class="bg-[#120e24] border border-[#231b3e] rounded-2xl p-4 text-xs text-[#a19bb3] flex gap-3 items-start">
+                            <span class="w-6 h-6 rounded-full bg-[#201939] text-[#8f6bf2] flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-circle-info" aria-hidden="true"></i></span>
+                            <p>Public data only. Availability depends on platforms and providers. Do not download content you are not authorized to use.</p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div class="w-full border-t border-[#231b3e] shadow-[0_-2px_15px_rgba(108,60,233,0.35)] my-8" aria-hidden="true"></div>
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#7e7694] py-6">
+                <p>&copy; 2026 <span class="text-white font-semibold">LiveHandle</span>. Free public analytics toolkit.</p>
+                <p>Made with <i class="fa-solid fa-heart text-[#8f6bf2] mx-1" aria-label="love"></i> for creators</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const initialDarkMode = document.documentElement.classList.contains('dark');
+        themeToggle.innerHTML = `<i class="fa-solid ${initialDarkMode ? 'fa-sun' : 'fa-moon'}" aria-hidden="true"></i>`;
+        themeToggle.setAttribute('aria-label', initialDarkMode ? 'Switch to light mode' : 'Switch to dark mode');
+
+        themeToggle.addEventListener('click', function() {
+            const darkMode = !document.documentElement.classList.contains('dark');
+            document.documentElement.classList.toggle('dark', darkMode);
+            document.documentElement.classList.toggle('dark-mode', darkMode);
+            document.body.classList.toggle('dark-mode', darkMode);
+            document.querySelector('meta[name="theme-color"]').content = darkMode ? '#0d0b18' : '#f5f4fa';
+            try {
+                localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+            } catch (error) {
+                console.warn('Unable to save the theme preference.', error);
+            }
+            themeToggle.innerHTML = `<i class="fa-solid ${darkMode ? 'fa-sun' : 'fa-moon'}" aria-hidden="true"></i>`;
+            themeToggle.setAttribute('aria-label', darkMode ? 'Switch to light mode' : 'Switch to dark mode');
+        });
+
+        document.querySelectorAll('.faq-item button').forEach(function(button) {
+            button.addEventListener('click', function() {
+                const expanded = button.getAttribute('aria-expanded') === 'true';
+                const answer = document.getElementById(button.getAttribute('aria-controls'));
+                const icon = button.querySelector('i');
+                button.setAttribute('aria-expanded', String(!expanded));
+                answer.classList.toggle('hidden', expanded);
+                icon.classList.toggle('fa-plus', expanded);
+                icon.classList.toggle('fa-minus', !expanded);
+            });
+        });
+
+        document.getElementById('dlForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const input = document.getElementById('video-url');
+            const error = document.getElementById('url-error');
+            const result = document.getElementById('preview-result');
+            const button = this.querySelector('button[type="submit"]');
+            const urlValue = input.value.trim();
+            let parsedUrl;
+
+            error.classList.add('hidden');
+            error.textContent = '';
+            result.classList.add('hidden');
+            result.textContent = '';
+
+            try {
+                parsedUrl = new URL(urlValue);
+            } catch {
+                error.textContent = 'Enter a complete, valid public video URL.';
+                error.classList.remove('hidden');
+                input.focus();
+                return;
+            }
+
+            const allowedHosts = ['instagram.com', 'tiktok.com', 'facebook.com', 'fb.watch'];
+            const isSupportedHost = allowedHosts.some(host => parsedUrl.hostname === host || parsedUrl.hostname.endsWith(`.${host}`));
+
+            if (!['http:', 'https:'].includes(parsedUrl.protocol) || !isSupportedHost) {
+                error.textContent = 'Use a public Instagram, TikTok, or Facebook video link.';
+                error.classList.remove('hidden');
+                input.focus();
+                return;
+            }
+
+            button.disabled = true;
+            button.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> Checking link...';
+
+            window.setTimeout(function() {
+                result.classList.remove('hidden');
+                result.innerHTML = '<p class="font-semibold text-amber-700"><i class="fa-solid fa-circle-info mr-2" aria-hidden="true"></i>Link format recognized; preview is unavailable.</p><p class="mt-1 text-gray-600">This page has no connected media-resolution service, so it cannot fetch or download the video yet.</p>';
+                button.disabled = false;
+                button.innerHTML = '<i class="fa-solid fa-play" aria-hidden="true"></i> Get preview';
+            }, 450);
+        });
+    </script>
+</body>
+
+</html>
