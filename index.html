@@ -25,6 +25,7 @@
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="input.css">
+    <link rel="stylesheet" href="site-navigation.css">
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script>
@@ -321,6 +322,10 @@
             color: #6b7280;
         }
         
+        .pb-safe {
+            padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
+        }
+
         body:not(.dark-mode) .home-feature-icon {
             background-color: #dedbff !important;
             color: #6344f5 !important;
@@ -338,21 +343,21 @@
     </style>
 </head>
 
-<body class="bg-[#0d0b18] text-white bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#231749]/40 via-[#0d0b18] to-[#0d0b18] min-h-screen font-sans selection:bg-brand-primary selection:text-white">
+<body class="bg-[#0d0b18] text-white bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#231749]/40 via-[#0d0b18] to-[#0d0b18] min-h-screen pb-20 md:pb-0 font-sans selection:bg-brand-primary selection:text-white">
     <script>
         document.body.classList.toggle('dark-mode', document.documentElement.classList.contains('dark'));
     </script>
 
     <header class="home-header sticky top-0 z-50 w-full border-b border-[#2a2442] bg-[#0a0712]/95 backdrop-blur-md">
         <nav class="mx-auto grid h-[60px] max-w-7xl grid-cols-[1fr_auto_1fr] items-center px-2 sm:px-4 lg:px-2" aria-label="Main navigation">
-            <a href="index.html" class="flex w-fit items-center ml-16 gap-2 no-underline transition-all hover:no-underline hover:opacity-80" aria-label="LiveHandle home">
+            <a href="index.html" class="flex w-fit items-center ml-0 gap-2 no-underline transition-all hover:no-underline hover:opacity-80 lg:ml-16" aria-label="LiveHandle home">
                 <span class="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full">
                     <img src="assets/livehandle-logo.png" alt="" class="h-full w-full object-contain">
                 </span>
                 <span class="header-brand-text home-logo-title text-xl font-extrabold tracking-tight"><span class="header-brand-live text-white">Live</span><span class="header-brand-handle text-[#8f6bf2]">Handle</span></span>
             </a>
 
-            <nav class="home-nav-pill hidden items-center justify-self-center gap-1 rounded-full border border-[#2a2442] bg-[#161226]/80 px-2 py-1.5 shadow-md xl:flex" aria-label="Primary">
+            <nav class="home-nav-pill hidden items-center justify-self-center gap-1 rounded-full border border-[#2a2442] bg-[#161226]/80 px-2 py-1.5 shadow-md lg:flex" aria-label="Primary">
                 <a href="index.html" class="rounded-full bg-[#6344f5] px-5 py-1.5 text-xs font-semibold text-white no-underline shadow-[0_0_12px_rgba(99,68,245,0.4)] transition-all hover:no-underline" aria-current="page">Home</a>
                 <a href="video-downloader.html" class="home-nav-link rounded-full px-3.5 py-1.5 text-xs font-medium text-[#9ca3af] no-underline transition-all hover:text-white hover:no-underline">Download</a>
                 <a href="tiktok-growth.html" class="home-nav-link rounded-full px-3.5 py-1.5 text-xs font-medium text-[#9ca3af] no-underline transition-all hover:text-white hover:no-underline">Growth</a>
@@ -362,13 +367,18 @@
                 <a href="contact.html" class="home-nav-link rounded-full px-3.5 py-1.5 text-xs font-medium text-[#9ca3af] no-underline transition-all hover:text-white hover:no-underline">Contact</a>
             </nav>
 
-            <div class="flex items-center justify-center gap-3">
-                <a href="downloads/LiveHandle.apk" download="LiveHandle.apk" class="bg-[#201939] text-[#8b5cf6] border border-[#342a5c] hover:bg-[#2b224d] px-4 py-2 rounded-full font-semibold text-xs flex items-center gap-2 no-underline transition-all">
+            <div class="flex items-center justify-center gap-2">
+                <a href="downloads/LiveHandle.apk" download="LiveHandle.apk" class="hidden bg-[#201939] text-[#8b5cf6] border border-[#342a5c] hover:bg-[#2b224d] px-4 py-2 rounded-full font-semibold text-xs sm:flex items-center gap-2 no-underline transition-all">
                     <i class="fa-brands fa-android" aria-hidden="true"></i> Download App
                 </a>
-                <button id="themeToggle" type="button" class="home-theme-toggle w-9 h-9 rounded-full bg-[#161226] border border-[#2a2442] text-[#9ca3af] hover:text-white flex items-center justify-center text-xs transition-all" aria-label="Toggle color theme">
-                    <i class="fa-solid fa-sun" aria-hidden="true"></i>
-                </button>
+                <div class="flex items-center gap-2">
+                    <button id="themeToggle" type="button" class="home-theme-toggle w-9 h-9 rounded-xl bg-[#161226] border border-[#2a2442] text-[#9ca3af] hover:text-white flex items-center justify-center text-sm transition-all" aria-label="Toggle color theme">
+                        <i class="fa-solid fa-gear" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="mobile-menu-toggle" data-mobile-menu-toggle aria-label="Open menu" aria-expanded="false" aria-controls="site-mobile-menu">
+                        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+                    </button>
+                </div>
             </div>
         </nav>
     </header>
@@ -394,20 +404,20 @@
                 </div>
 
                 <!-- Tool Pills (Now fully clickable links) -->
-                <div class="flex flex-wrap gap-3 lg:mb-[31px]">
-                    <a href="instagram-analyzer.html" class="home-tool-pill flex cursor-pointer items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-800 no-underline shadow-sm transition-all hover:bg-gray-50 hover:no-underline">
+                <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:mb-[31px]">
+                    <a href="instagram-analyzer.html" class="home-tool-pill flex w-full cursor-pointer items-center justify-start gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-800 no-underline shadow-sm transition-all hover:bg-gray-50 hover:no-underline sm:w-auto sm:justify-center">
                         <i class="fa-brands fa-instagram text-[#7c3aed]"></i> Instagram Profile Analyzer
                     </a>
-                    <a href="tiktok-analyzer.html" class="home-tool-pill flex cursor-pointer items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-800 no-underline shadow-sm transition-all hover:bg-gray-50 hover:no-underline">
+                    <a href="tiktok-analyzer.html" class="home-tool-pill flex w-full cursor-pointer items-center justify-start gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-800 no-underline shadow-sm transition-all hover:bg-gray-50 hover:no-underline sm:w-auto sm:justify-center">
                         <i class="fa-brands fa-tiktok text-[#7c3aed]"></i> TikTok Profile Analyzer
                     </a>
-                    <a href="tiktok-growth.html" class="home-tool-pill flex cursor-pointer items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-800 no-underline shadow-sm transition-all hover:bg-gray-50 hover:no-underline">
+                    <a href="tiktok-growth.html" class="home-tool-pill flex w-full cursor-pointer items-center justify-start gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-800 no-underline shadow-sm transition-all hover:bg-gray-50 hover:no-underline sm:w-auto sm:justify-center">
                         <i class="fa-solid fa-arrow-trend-up text-[#7c3aed]"></i> TikTok Growth Analyzer
                     </a>
-                    <a href="video-downloader.html" class="home-tool-pill flex cursor-pointer items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-800 no-underline shadow-sm transition-all hover:bg-gray-50 hover:no-underline">
+                    <a href="video-downloader.html" class="home-tool-pill flex w-full cursor-pointer items-center justify-start gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-800 no-underline shadow-sm transition-all hover:bg-gray-50 hover:no-underline sm:w-auto sm:justify-center">
                         <i class="fa-solid fa-download text-[#7c3aed]"></i> Social Video Downloader
                     </a>
-                    <a href="content-trends.html" class="home-tool-pill flex cursor-pointer items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-xs font-semibold text-gray-800 no-underline shadow-sm transition-all hover:bg-gray-50 hover:no-underline dark:border-[#231b3e] dark:bg-[#120e24] dark:text-[#d1cdde] dark:hover:border-[#6c3ce9] dark:hover:bg-[#201939] dark:hover:text-white">
+                    <a href="content-trends.html" class="home-tool-pill flex w-full cursor-pointer items-center justify-start gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-xs font-semibold text-gray-800 no-underline shadow-sm transition-all hover:bg-gray-50 hover:no-underline dark:border-[#231b3e] dark:bg-[#120e24] dark:text-[#d1cdde] dark:hover:border-[#6c3ce9] dark:hover:bg-[#201939] dark:hover:text-white sm:w-auto sm:justify-center">
                         <i class="fa-solid fa-fire"></i> Content Trends
                     </a>
                 </div>
@@ -780,6 +790,7 @@
             }, 1500);
         });
     </script>
+    <script src="site-navigation.js"></script>
 </body>
 
 </html>

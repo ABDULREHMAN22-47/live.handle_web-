@@ -1,0 +1,335 @@
+.mobile-menu-toggle {
+    display: none;
+    width: 2.25rem;
+    height: 2.25rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #2a2442;
+    border-radius: 0.75rem;
+    background: #161226;
+    color: #9ca3af;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: color 150ms ease, background-color 150ms ease;
+}
+
+.mobile-menu-toggle:hover,
+.mobile-menu-toggle:focus-visible {
+    color: #fff;
+    outline-color: #8f6bf2;
+}
+
+.mobile-menu-panel,
+.site-mobile-nav {
+    color: #d1cdde;
+    background: #0a0712;
+    border-color: #231b3c;
+}
+
+.mobile-menu-panel[hidden] {
+    display: none;
+}
+
+.mobile-menu-panel {
+    position: fixed;
+    z-index: 40;
+    inset: 60px 0 0;
+    overflow-y: auto;
+    border-top: 1px solid #231b3c;
+}
+
+.mobile-menu-content {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 1rem 1rem 1.5rem;
+}
+
+.mobile-menu-benefits {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 1.75rem;
+    padding: 0.75rem;
+    border: 1px solid #342a5c;
+    border-radius: 1.25rem;
+    background: #1b1531;
+}
+
+.mobile-menu-benefits > div {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.mobile-menu-benefits > div > i {
+    display: flex;
+    width: 2rem;
+    height: 2rem;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.6rem;
+    background: #201939;
+    color: #8f6bf2;
+}
+
+.mobile-menu-benefits span {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+}
+
+.mobile-menu-benefits strong {
+    color: #fff;
+    font-size: 0.75rem;
+}
+
+.mobile-menu-benefits small {
+    color: #a19bb3;
+    font-size: 0.625rem;
+}
+
+.mobile-menu-heading {
+    margin: 1rem 0 0.75rem;
+    color: #8f6bf2;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.mobile-menu-heading i {
+    margin-right: 0.4rem;
+}
+
+.mobile-menu-links {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.mobile-menu-links a {
+    display: flex;
+    min-height: 3.25rem;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid #342a5c;
+    border-radius: 1rem;
+    background: #1b1531;
+    color: #f3f1fa;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.mobile-menu-links a:hover,
+.mobile-menu-links a:focus-visible,
+.mobile-menu-secondary a:hover,
+.mobile-menu-secondary a:focus-visible {
+    border-color: #6344f5;
+    background: #6344f5;
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(99, 68, 245, 0.25);
+    outline: none;
+}
+
+.mobile-menu-links a:hover > i,
+.mobile-menu-links a:focus-visible > i {
+    color: #fff;
+}
+
+.mobile-menu-links a > i:first-child {
+    width: 1.25rem;
+    color: #8f6bf2;
+    text-align: center;
+}
+
+.mobile-menu-links a > span {
+    flex: 1;
+}
+
+.mobile-menu-links a > i:last-child {
+    color: #a19bb3;
+    font-size: 0.75rem;
+}
+
+.mobile-menu-links a[aria-current="page"] {
+    border-color: #6344f5;
+    color: #8f6bf2;
+}
+
+.mobile-menu-secondary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.mobile-menu-secondary a {
+    padding: 0.625rem 0.875rem;
+    border: 1px solid #342a5c;
+    border-radius: 0.75rem;
+    color: #d1cdde;
+    text-decoration: none;
+    transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease;
+}
+
+.site-mobile-nav {
+    position: fixed;
+    z-index: 50;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: none;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0.5rem 0.25rem calc(0.5rem + env(safe-area-inset-bottom));
+    border-top: 1px solid #231b3c;
+    background: rgba(10, 7, 18, 0.95);
+    backdrop-filter: blur(12px);
+}
+
+.site-mobile-nav a {
+    display: flex;
+    min-width: 4.5rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    color: #9ca3af;
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: color 150ms ease;
+}
+
+.site-mobile-nav a > span {
+    display: flex;
+    min-width: 3.5rem;
+    justify-content: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.75rem;
+    transition: background-color 150ms ease, color 150ms ease;
+}
+
+.site-mobile-nav a small {
+    font-size: 0.625rem;
+    font-weight: 500;
+}
+
+.site-mobile-nav a.is-active {
+    color: #8f6bf2;
+}
+
+.site-mobile-nav a.is-active > span {
+    background: #201939;
+}
+
+.site-mobile-nav a:hover,
+.site-mobile-nav a:focus-visible {
+    color: #8f6bf2;
+    outline: none;
+}
+
+.site-mobile-nav a:hover > span,
+.site-mobile-nav a:focus-visible > span {
+    background: #201939;
+}
+
+body.mobile-menu-open {
+    overflow: hidden;
+}
+
+@media (max-width: 1023px) {
+    .mobile-menu-toggle {
+        display: inline-flex;
+    }
+}
+
+@media (max-width: 767px) {
+    body {
+        padding-bottom: 5rem;
+    }
+
+    .mobile-menu-panel {
+        bottom: 4.5rem;
+    }
+
+    .site-mobile-nav {
+        display: flex;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .mobile-menu-panel {
+        bottom: 0;
+    }
+}
+
+html:not(.dark-mode) .mobile-menu-toggle {
+    border-color: #e5e7eb;
+    background: #fff;
+    color: #4b5563;
+}
+
+html:not(.dark-mode) .mobile-menu-panel,
+html:not(.dark-mode) .site-mobile-nav {
+    border-color: #e5e7eb;
+    background: rgba(245, 244, 250, 0.97);
+    color: #111827;
+}
+
+html:not(.dark-mode) .mobile-menu-benefits,
+html:not(.dark-mode) .mobile-menu-links a {
+    border-color: #e5e7eb;
+    background: #fff;
+}
+
+html:not(.dark-mode) .mobile-menu-benefits strong,
+html:not(.dark-mode) .mobile-menu-links a {
+    color: #111827;
+}
+
+html:not(.dark-mode) .mobile-menu-benefits small,
+html:not(.dark-mode) .mobile-menu-links a > i:last-child,
+html:not(.dark-mode) .site-mobile-nav a {
+    color: #6b7280;
+}
+
+html:not(.dark-mode) .mobile-menu-benefits > div > i,
+html:not(.dark-mode) .site-mobile-nav a.is-active > span {
+    background: #eeeafc;
+}
+
+html:not(.dark-mode) .mobile-menu-links a[aria-current="page"],
+html:not(.dark-mode) .site-mobile-nav a.is-active {
+    color: #6344f5;
+}
+
+html:not(.dark-mode) .mobile-menu-links a:hover,
+html:not(.dark-mode) .mobile-menu-links a:focus-visible,
+html:not(.dark-mode) .mobile-menu-secondary a:hover,
+html:not(.dark-mode) .mobile-menu-secondary a:focus-visible {
+    border-color: #6344f5;
+    background: #6344f5;
+    color: #fff;
+}
+
+html:not(.dark-mode) .mobile-menu-links a:hover > i,
+html:not(.dark-mode) .mobile-menu-links a:focus-visible > i {
+    color: #fff;
+}
+
+html:not(.dark-mode) .site-mobile-nav a:hover,
+html:not(.dark-mode) .site-mobile-nav a:focus-visible {
+    color: #6344f5;
+}
+
+html:not(.dark-mode) .site-mobile-nav a:hover > span,
+html:not(.dark-mode) .site-mobile-nav a:focus-visible > span {
+    background: #eeeafc;
+}
+
+html:not(.dark-mode) .mobile-menu-secondary a {
+    border-color: #e5e7eb;
+    color: #4b5563;
+}

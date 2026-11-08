@@ -19,6 +19,7 @@
     <script>window.tailwind = window.tailwind || {}; window.tailwind.config = { darkMode: 'class' };</script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="input.css">
+    <link rel="stylesheet" href="site-navigation.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         html { scroll-behavior: smooth; }
@@ -56,7 +57,7 @@
                 <span class="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full"><img src="assets/livehandle-logo.png" alt="" class="h-full w-full object-contain"></span>
                 <span class="header-brand-text theme-heading text-lg font-extrabold tracking-tight"><span class="header-brand-live">Live</span><span class="header-brand-handle">Handle</span></span>
             </a>
-            <div class="site-nav order-3 flex w-full items-center justify-center gap-1 overflow-x-auto rounded-full border border-gray-200/80 bg-white px-2 py-1.5 shadow-md dark:border-[#2a2442] dark:bg-[#161226]/80 lg:order-2 lg:w-auto">
+            <div class="site-nav order-3 hidden w-full items-center justify-center gap-1 overflow-x-auto rounded-full border border-gray-200/80 bg-white px-2 py-1.5 shadow-md dark:border-[#2a2442] dark:bg-[#161226]/80 lg:order-2 lg:flex lg:w-auto">
                 <a href="index.html" class="theme-link whitespace-nowrap rounded-full px-3.5 py-1.5 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-100 dark:text-[#9ca3af] dark:hover:bg-[#201939] dark:hover:text-white">Home</a>
                 <a href="video-downloader.html" class="theme-link whitespace-nowrap rounded-full px-3.5 py-1.5 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-100 dark:text-[#9ca3af] dark:hover:bg-[#201939] dark:hover:text-white">Download</a>
                 <a href="tiktok-growth.html" aria-current="page" class="whitespace-nowrap rounded-full bg-[#6344f5] px-5 py-1.5 text-xs font-semibold text-white shadow-[0_0_12px_rgba(99,68,245,0.4)]">Growth</a>
@@ -330,5 +331,6 @@
             document.getElementById('calculatorResult').textContent = `Estimated engagement rate: ${rate.toFixed(2)}% per video.`;
         });
     </script>
+    <script src="site-navigation.js"></script>
 </body>
 </html>
